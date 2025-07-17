@@ -56,10 +56,10 @@ public class ArticleService {
                 .map(this::mapToArticleResponse);
     }
 
-public ArticleResponse findById(Long id) {
-    Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
-    return mapToArticleResponse(article);
-}
+    public ArticleResponse findById(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
+        return mapToArticleResponse(article);
+    }
 
     public ArticleResponse update(Long id, ArticleRequest articleRequest) {
         Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -69,10 +69,10 @@ public ArticleResponse findById(Long id) {
         return mapToArticleResponse(article);
     }
 
-public void delete(Long id) {
-    Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
-    articleRepository.delete(article);
-}
+    public void delete(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
+        articleRepository.delete(article);
+    }
 
     private ArticleResponse mapToArticleResponse(Article article) {
         return ArticleResponse.builder()

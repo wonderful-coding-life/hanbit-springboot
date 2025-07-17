@@ -45,12 +45,12 @@ public interface ArticleMapper {
     """)
     int update(@Param("id") Long id, @Param("title") String title, @Param("description") String description);
 
-    @Delete("DELETE article WHERE id=#{id}")
+    @Delete("DELETE FROM article WHERE id=#{id}")
     int deleteById(@Param("id") Long id);
 
-    @Delete("DELETE article WHERE member_id=#{memberId}")
+    @Delete("DELETE FROM article WHERE member_id=#{memberId}")
     int deleteByMemberId(@Param("memberId") Long memberId);
 
-    @Delete("DELETE article")
+    @Delete("DELETE FROM article")
     int deleteAll();
 }
