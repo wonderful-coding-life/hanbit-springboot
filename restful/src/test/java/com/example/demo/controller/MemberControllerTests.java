@@ -37,21 +37,18 @@ public class MemberControllerTests {
 
         // prepare json string from memberRequest
         String requestString = objectMapper.writeValueAsString(memberRequest);
-        String requestStringTemp = "{ \"name\": \"윤서준\", \"email\": \"SeojunYoon@hanbit.co.kr\", \"age\": 10 }";
+        //String requestString = "{ \"name\": \"윤서준\", \"email\": \"SeojunYoon@hanbit.co.kr\", \"age\": 10 }";
 
         // prepare request builder
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/members")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(requestStringTemp);
+        var requestBuilder = MockMvcRequestBuilders.post("/api/members")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestString);
 
         // request to MockMvc and validate status code
         MvcResult mvcResult = mockMvc.perform(requestBuilder)
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(header().string("Content-Type", "application/json"))
-                .andExpect(content().json("{ name: '윤서준' }", JsonCompareMode.LENIENT))
-                .andExpect(content().json("{ name: 윤서준 }", JsonCompareMode.LENIENT))
                 .andExpect(content().json("{ \"name\": \"윤서준\" }", JsonCompareMode.LENIENT))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andReturn();
