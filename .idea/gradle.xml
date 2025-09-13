@@ -60,6 +60,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mvc" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mvc" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/mybatis" />
         <option name="modules">
           <set>
