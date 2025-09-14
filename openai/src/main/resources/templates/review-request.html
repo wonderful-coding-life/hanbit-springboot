@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/review}" method="post">
+    <label for="name">제품 이름:</label>
+    <input type="text" id="name" name="name"/><br>
+    <label for="price">제품 가격:</label>
+    <input type="text" id="price" name="price"/><br>
+    <label for="link">구매 링크:</label>
+    <input type="text" id="link" name="link"/><br>
+    <label for="features">제품 특징:</label><br />
+    <textarea id="features" name="features" rows="8" cols="60"></textarea><br>
+    <button>생성</button>
+</form>
+</body>
+</html>
