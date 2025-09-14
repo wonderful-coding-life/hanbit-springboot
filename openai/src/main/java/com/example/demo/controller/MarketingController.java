@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ReviewRequest;
+import com.example.demo.model.ProductInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.SystemMessage;
@@ -16,16 +16,16 @@ import java.text.MessageFormat;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class ReviewController {
+public class MarketingController {
     private final OpenAiChatModel chatModel;
 
-    @GetMapping("/review")
-    public String getReview() {
-        return "review-request";
+    @GetMapping("/marketing")
+    public String getMarketing() {
+        return "marketing-request";
     }
 
-    @PostMapping("/review")
-    public String postReview(ReviewRequest reviewRequest, Model model) {
+    @PostMapping("/marketing")
+    public String postMarketing(ProductInfo productInfo, Model model) {
         var systemMessage = new SystemMessage("""
                 너는 전문 마케팅 카피라이터야.
                 입력된 제품 정보를 기반으로 온라인 쇼핑몰/블로그/홍보 페이지에 사용할 매력적인 마케팅 문구를 작성해 줘.
@@ -38,23 +38,21 @@ public class ReviewController {
                 5. 필요하면 감각적인 이모지도 활용해.
             """);
 
-        String userMessageTemplate = MessageFormat.format("""
+        var userMessage = new UserMessage(MessageFormat.format("""
                 ### 입력 정보
                 - 제품명: {0}
                 - 가격: {1}
                 - 구매 링크: {2}
                 - 제품 특징: {3}
-            """ , reviewRequest.getName(),
-                reviewRequest.getPrice(),
-                reviewRequest.getLink(),
-                reviewRequest.getFeatures());
-
-        var userMessage = new UserMessage(userMessageTemplate);
+            """ , productInfo.getName(),
+                productInfo.getPrice(),
+                productInfo.getLink(),
+                productInfo.getFeatures()));
 
         String result = chatModel.call(userMessage, systemMessage);
         log.info("result = {}", result);
-        model.addAttribute("reviewResult", result);
+        model.addAttribute("marketingResult", result);
 
-        return "review-response";
+        return "marketing-response";
     }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ReviewRequest {
+public class ProductInfo {
     private String name;
     private Integer price;
     private String link;
