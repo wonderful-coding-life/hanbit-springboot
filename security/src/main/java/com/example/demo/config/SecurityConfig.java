@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,16 +36,21 @@ import java.util.List;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 public class SecurityConfig {
+
     //@Bean
     public SecurityFilterChain securityFilterChainDefault(HttpSecurity http) throws Exception {
         http
-                .csrf(withDefaults()) // default enabled
+                .csrf(withDefaults()) // CSRF protection is enabled by default
+                // authorizeHttpRequests default:
+                // - If you define your own SecurityFilterChain → all requests require authentication
+                // - If you rely on Spring Boot auto-config → some static resources (/css, /js, /images, /error) are permitAll
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .formLogin(withDefaults())
-                .logout(withDefaults())
-                .httpBasic(withDefaults());
+                .formLogin(withDefaults()) // formLogin is NOT enabled by default when you define SecurityFilterChain manually
+                .logout(withDefaults()) // logout IS enabled by default, even if you don't configure it
+                .httpBasic(withDefaults()); // HTTP Basic is NOT enabled by default
+        ;
         return http.build();
     }
 
@@ -129,8 +133,8 @@ public class SecurityConfig {
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/member/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
-                .formLogin(withDefaults())
-                .logout(withDefaults());
+                .formLogin(withDefaults())  // formLogin is NOT enabled by default when you define SecurityFilterChain manually
+                .logout(withDefaults()); // logout IS enabled by default, even if you don't configure it
         return http.build();
     }
 
