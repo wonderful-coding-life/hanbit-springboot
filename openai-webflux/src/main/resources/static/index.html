@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebFlux Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #chat-box { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; white-space: pre-wrap; }
+        #user-input { width: 80%; }
+        #send-btn { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+<h2>OpenAI 대화방</h2>
+<div id="chat-box"></div>
+<br/>
+<input type="text" id="user-input" placeholder="문의: " />
+<button id="send-btn">전송</button>
+<script>
+    const button = document.getElementById('send-btn');
+    button.addEventListener('click', sendMessage);
+
+    const input = document.getElementById('user-input');
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    async function sendMessage() {
+      const query = input.value.trim();
+      if (!query) return;
+
+      appendMessage(`You: ${query}\n`);
+      input.value = '';
+
+      // 응답 헤더가 올때까지 기다린다
+      const response = await fetch(`/chat?message=${encodeURIComponent(query)}`);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        // 응답이 조각 단위로 도착할 때까지 기다린다
+        const { value, done } = await reader.read();
+        if (done) break;
+        // 바이너리 데이터를 텍스트로 변환
+        const chunk = decoder.decode(value, { stream: true });
+        appendMessage(chunk);
+      }
+
+      appendMessage('\n');
+    }
+
+    const chatBox = document.getElementById('chat-box');
+    function appendMessage(message) {
+      chatBox.textContent += message;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>

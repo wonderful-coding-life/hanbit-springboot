@@ -84,6 +84,22 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-tool" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/openai-tool" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-webflux" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/openai-webflux" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/querydsl" />
         <option name="modules">
           <set>
