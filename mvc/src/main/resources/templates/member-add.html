@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>회원 추가</title>
+    <title>MVC demo</title>
 </head>
 <body>
     <form th:action="@{/member/add}" method="post">
         <input type="text" name="name"/><br>
         <input type="text" name="email"/><br>
-        <input type="text" name="age"/><br>
+        <input type="text" name="password"/><br>
         <button>추가</button>
     </form>
 </body>

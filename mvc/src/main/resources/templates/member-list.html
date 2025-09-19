@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>회원 목록</title>
+    <title>MVC demo</title>
 </head>
 <body>
 <a th:href="@{/member/add}">추가</a>
@@ -11,7 +11,6 @@
         <td th:text="${member.id}">100</td>
         <td th:text="${member.name}">홍길동</td>
         <td th:text="${member.email}">GildongHong@hanbit.co.kr</td>
-        <td th:text="${member.age}">16</td>
         <td><a th:href="@{/member/edit(id=${member.id})}">수정</a></td>
         <td><a th:href="@{/member/delete(id=${member.id})}">삭제</a></td>
     </tr>

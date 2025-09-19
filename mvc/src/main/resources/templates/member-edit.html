@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MVC demo</title>
 </head>
 <body>
     <form th:action="@{/member/edit}" method="post">
         <input type="hidden" name="id" th:value="${member.id}"/><br>
         <input type="text" name="name" th:value="${member.name}"/><br>
         <input type="text" name="email" th:value="${member.email}"/><br>
-        <input type="text" name="age" th:value="${member.age}"/><br>
+        <input type="text" name="password" th:value="${member.password}"/><br>
         <button>저장</button>
     </form>
 </body>
