@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Member;
+import com.example.demo.model.MemberUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,18 +27,20 @@ public class MemberController {
         return "/member-list";
     }
 
-    @GetMapping("/member/list/1")
-    public String getMembers1(Model model, @AuthenticationPrincipal User user) {
-
-        // user is null if not login
-        if (user != null) {
-            log.info("{}", user.getUsername());
-            log.info("{}", user.isEnabled());
-            log.info("{}", user.isAccountNonLocked());
-            log.info("{}", user.isAccountNonExpired());
-            log.info("{}", user.isCredentialsNonExpired());
+    // 컨트롤러 내부에서도 로그인한 사용자 정보에 접근할 수 있다
+    // 커스텀 UserDetails도 지원한다.
+    //   MemberUserDetails memberUserDetails...
+    //   log.info("{}", userDetails.getDisplayName());
+    @GetMapping("/member/list/1")    public String getMembers1(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        // userDetails is null if not login
+        if (userDetails != null) {
+            log.info("{}", userDetails.getUsername());
+            log.info("{}", userDetails.isEnabled());
+            log.info("{}", userDetails.isAccountNonLocked());
+            log.info("{}", userDetails.isAccountNonExpired());
+            log.info("{}", userDetails.isCredentialsNonExpired());
         } else {
-            log.info("user is null");
+            log.info("userDetails is null");
         }
 
         model.addAttribute("members", members);
