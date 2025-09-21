@@ -124,6 +124,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/security-basic" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/security-basic" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/spring-jdbc" />
         <option name="modules">
           <set>

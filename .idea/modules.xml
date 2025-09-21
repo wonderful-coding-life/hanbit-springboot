@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-tool.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-tool.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-webflux.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-webflux.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-basic.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" />
     </modules>

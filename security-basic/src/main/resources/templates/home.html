@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li><a th:href="@{/login}">로그인</a></li>
+        <li><a th:href="@{/logout}">로그아웃</a></li>
+    </ul>
+    <ul>
+        <li><a th:href="@{/product}">상품 목록</a></li>
+        <li><a th:href="@{/order}">상품 주문</a></li>
+        <li><a th:href="@{/member}">회원 관리</a></li>
+    </ul>
+
+    <!-- thymeleaf-extras-springsecurity6 -->
+    <hr>
+    <ul>
+        <li sec:authorize="isAuthenticated()" sec:authentication="principal.username">회원아이디</li>
+        <li sec:authorize="isAnonymous()"><a th:href="@{/login}">로그인</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
+    </ul>
+    <ul>
+        <li><a th:href="@{/product}">상품 목록</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/order}">상품 주문</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN')"><a th:href="@{/member}">회원 관리</a></li>
+    </ul>
+</body>
+</html>

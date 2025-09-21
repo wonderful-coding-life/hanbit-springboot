@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>로그인</h1>
+    <div th:if="${param.error}">아이디와 패스워드가 잘못 되었습니다</div>
+    <form th:action="@{/login}" method="post">
+        <input type="text" name="username" placeholder="아이디"><br>
+        <input type="password" name="password" placeholder="패스워드"><br>
+        <button type="submit">로그인</button>
+    </form>
+</body>
+</html>
