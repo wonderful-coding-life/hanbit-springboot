@@ -21,8 +21,12 @@
 
 ### Chapter 05. 스프링 부트로 게시판 만들기
 - [타임리프](./thymeleaf/)
+- [스프링 MVC](./mvc/)
+- [스프링 시큐리티 기본](./security-basic)
 - [스프링 시큐리티](./security/)
 - [게시판 프로젝트](./bbs/)
 
 ### Chapter 08. 스프링 부트와 챗GPT 연동하기
-- [ChatGPT](./openai/)
+- [ChatGPT - AI Model](./openai/)
+- [ChatGPT - Tool](./openai-tool)
+- [ChatGPT - Stream](./openai-webflux)
