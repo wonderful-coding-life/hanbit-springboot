@@ -24,11 +24,13 @@ public class MemberServiceUnitTests {
 
     @Test
     public void findById() {
+        // when().thenReturn()으로 여러개의 조건을 만들 수 있다.
         when(memberRepository.findById(1L)).thenReturn(Optional.ofNullable(Member.builder()
                 .id(1L)
                 .name("윤서준")
                 .email("SeojunYoon@hanbit.co.kr")
                 .age(10).build()));
+        when(memberRepository.count()).thenReturn(2L);
 
         MemberResponse memberResponse = memberService.findById(1L);
 
