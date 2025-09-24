@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class MemberController {
 
     @GetMapping("/member/edit")
     public String getMemberEdit(@RequestParam("id") Long id, Model model) {
-        var member = memberRepository.findById(id).orElseThrow();
+        var member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("member", member);
         return "member-edit";
     }
