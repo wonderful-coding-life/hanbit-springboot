@@ -42,9 +42,9 @@ public class StructuredOutputConverterTests {
 
         // 프롬프트 구성 예
         String format = beanOutputConverter.getFormat();
-        String actor = "송강호";
+        String actor = "브래드 피트";
         String message = MessageFormat.format("""
-            {0}의 출연작 5편의 필모그래피를 생성하시오.
+            {0}의 최신 출연작 5편의 영화를 알려 줘. 특히 2025년에 나온 영화가 있다면 포함해 줘.
             {1}
         """, actor, format);
         System.out.println("message = " + message);
