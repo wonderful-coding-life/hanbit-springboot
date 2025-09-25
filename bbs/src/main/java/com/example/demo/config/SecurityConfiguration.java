@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.model.MemberUserDetails;
+import com.example.demo.model.MemberUser;
 import com.example.demo.model.Authority;
 import com.example.demo.model.Member;
 import com.example.demo.repository.AuthorityRepository;
@@ -82,7 +82,7 @@ public class SecurityConfiguration {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 Member member = memberRepository.findByEmail(username).orElseThrow();
                 List<Authority> authorities = authorityRepository.findByMember(member);
-                return new MemberUserDetails(member, authorities);
+                return new MemberUser(member, authorities);
             }
         };
     }

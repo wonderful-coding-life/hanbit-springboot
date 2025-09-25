@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MemberForm;
 import com.example.demo.dto.PasswordForm;
-import com.example.demo.model.MemberUserDetails;
+import com.example.demo.model.MemberUser;
 import com.example.demo.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -65,9 +65,9 @@ public class HomeController {
     @PostMapping("/password")
     public String postPassword(@Valid @ModelAttribute("password") PasswordForm passwordForm,
                                BindingResult bindingResult,
-                               @AuthenticationPrincipal MemberUserDetails userDetails) {
+                               @AuthenticationPrincipal MemberUser userDetails) {
 
-        if (!memberService.checkPassword(userDetails.getMemberId(), passwordForm.getOld())) {
+        if (!memberService.checkPassword(userDetails.getId(), passwordForm.getOld())) {
             bindingResult.rejectValue("old", "MissMatch", "비밀번호가 잘못 되었습니다");
         }
         if (!passwordForm.getPassword().equals(passwordForm.getPasswordConfirm())) {
@@ -77,7 +77,7 @@ public class HomeController {
             return "/password";
         }
 
-        memberService.updatePassword(userDetails.getMemberId(), passwordForm.getPassword());
+        memberService.updatePassword(userDetails.getId(), passwordForm.getPassword());
         return "redirect:/";
     }
 }

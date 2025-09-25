@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleForm;
-import com.example.demo.model.MemberUserDetails;
+import com.example.demo.model.MemberUser;
 import com.example.demo.service.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -61,8 +61,6 @@ public class ArticleController {
         return "article-content";
     }
 
-
-
     // 게시글 입력 폼 요청
 //    @GetMapping("/add")
 //    public String getArticleAdd() {
@@ -97,7 +95,7 @@ public class ArticleController {
     @PostMapping("/add")
     public String postArticleAdd(@Valid @ModelAttribute("article") ArticleForm articleForm,
                                  BindingResult bindingResult,
-                                 @AuthenticationPrincipal MemberUserDetails userDetails) {
+                                 @AuthenticationPrincipal MemberUser memberUser) {
 
         if (articleForm.getTitle() != null && articleForm.getTitle().contains("T발")) {
             bindingResult.rejectValue("title", "SlangDetected", "욕설을 사용하지 마세요");
@@ -110,7 +108,7 @@ public class ArticleController {
             return "article-add";
         }
 
-        articleService.create(userDetails.getMemberId(), articleForm);
+        articleService.create(memberUser.getId(), articleForm);
         return "redirect:/article/list";
     }
 
@@ -140,11 +138,11 @@ public class ArticleController {
     @PostMapping("/edit")
     public String postArticleEdit(@Valid @ModelAttribute("article") ArticleForm articleForm,
                                   BindingResult bindingResult,
-                                  @AuthenticationPrincipal MemberUserDetails userDetails) throws BadRequestException {
+                                  @AuthenticationPrincipal MemberUser userDetails) throws BadRequestException {
         if (bindingResult.hasErrors()) {
             return "article-edit";
         }
-        articleService.update(userDetails.getMemberId(), articleForm);
+        articleService.update(userDetails.getId(), articleForm);
         return "redirect:/article/content?id=" + articleForm.getId();
     }
 
