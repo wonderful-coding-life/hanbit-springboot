@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>스프링 부트 게시판</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<nav th:fragment="header" class="navbar navbar-expand bg-dark" data-bs-theme="dark">
+    <div class="container">
+        <!-- 브랜드 선택시 디폴트로 게시글 화면 표시 -->
+        <a class="navbar-brand" th:href="@{/}">
+            <img src="../static/image/spring.svg" th:src="@{/image/spring.svg}" width="30" height="30" class="d-inline-block align-text-top">
+            스프링 부트 게시판
+        </a>
+        <!-- 로그인 상태에 따라 다른 메뉴 표시 -->
+        <ul class="navbar-nav">
+            <!-- 손님에게는 로그인, 회원가입 메뉴 표시 -->
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="nav-link">로그인</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/signup}" class="nav-link">회원가입</a>
+            </li>
+            <!-- 관리자에게는 회원관리 메뉴 표시 -->
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    관리
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/member/list}">회원관리</a></li>
+                </ul>
+            </li>
+            <!-- 회원에게는 비밀번호 변경, 로그아웃 메뉴 표시 -->
+            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="principal.name">
+                    윤서준
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/password}">비밀번호 변경</a></li>
+                    <li><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></li>
+                    <!-- 확인 없이 바로 로그아웃 수행
+                    <li>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item">로그아웃</button>
+                        </form>
+                    </li>
+                    -->
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+<nav th:fragment="pager(page, baseUrl, block)" th:if="${page != null and !page.empty}">
+    <ul class="pagination"
+        th:with="start=${T(java.lang.Math).floor(page.number / block) * block},
+               last=${(start + (block - 1) < page.totalPages ? start + (block - 1) : page.totalPages - 1)}">
+        <!-- 이전 -->
+        <li class="page-item" th:classappend="${page.first} ? ' disabled'">
+            <a class="page-link"
+               th:href="@{${baseUrl}(page=${page.number - 1})}">&laquo;</a>
+        </li>
+        <!-- 번호 -->
+        <li class="page-item"
+            th:each="pageNumber : ${#numbers.sequence(start, last)}"
+            th:classappend="${pageNumber == page.number} ? ' active'">
+            <a class="page-link"
+               th:text="${pageNumber + 1}"
+               th:href="@{${baseUrl}(page=${pageNumber})}">1</a>
+        </li>
+        <!-- 다음 -->
+        <li class="page-item" th:classappend="${page.last} ? ' disabled'">
+            <a class="page-link"
+               th:href="@{${baseUrl}(page=${page.number + 1})}">&raquo;</a>
+        </li>
+    </ul>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

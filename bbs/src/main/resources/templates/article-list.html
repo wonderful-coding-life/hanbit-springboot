@@ -25,19 +25,7 @@
         </tr>
         </tbody>
     </table>
-    <nav th:if="${!page.isEmpty()}">
-        <ul class="pagination" th:with="start=${T(java.lang.Math).floor(page.number / 5) * 5}, last=(${start + 4 < page.totalPages ? start + 4 : page.totalPages - 1})">
-            <li class="page-item" th:classappend="${page.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/article/list(page=${page.number - 1})}">&laquo;</a>
-            </li>
-            <li th:each="pageNumber: ${#numbers.sequence(start, last)}" class="page-item" th:classappend="${pageNumber == page.number} ? 'active'">
-                <a class="page-link" th:text="${pageNumber + 1}" th:href="@{/article/list(page=${pageNumber})}">1</a>
-            </li>
-            <li class="page-item" th:classappend="${page.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/article/list(page=${page.number + 1})}">&raquo;</a>
-            </li>
-        </ul>
-    </nav>
+    <div th:replace="~{common::pager(${page}, '/article/list', 5)}"></div>
     <a type="button" class="btn btn-primary" th:href="@{/article/add}" sec:authorize="isAuthenticated()">글쓰기</a>
 </section>
 </body>
