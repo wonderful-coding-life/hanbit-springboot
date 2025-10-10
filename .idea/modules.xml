@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bbs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bbs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hanbit-springboot.iml" filepath="$PROJECT_DIR$/.idea/hanbit-springboot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lombok.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lombok.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security.main.iml" />
     </modules>
   </component>
 </project>

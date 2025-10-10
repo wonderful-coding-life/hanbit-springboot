@@ -7,17 +7,18 @@
 - [의존성 주입](./di/)
 - [제어의 역전](./ioc/)
 - [관점 지향 프로그래밍](./aop/)
+- [롬복](./lombok/)
 
 ### Chapter 03. 데이터베이스 연동하기
 - [JDBC](./jdbc/)
-- [Spring JDBC](./spring-jdbc/)
+- [Spring Data JDBC](./spring-jdbc/)
 - [MyBatis](./mybatis/)
 - [JPA](./jpa/)
 - [QueryDSL](./querydsl/)
 - [MongoDB](./mongodb/)
 
 ### Chapter 04. RESTful API 작성하기
-- [RESTFul API](./restful/)
+- [RESTFul API, Service, Test](./restful/)
 
 ### Chapter 05. 스프링 부트로 게시판 만들기
 - [타임리프](./thymeleaf/)
