@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="security-basic.main" />
+        <module name="thymeleaf.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -50,6 +50,9 @@
       <module name="jpa" options="-parameters" />
       <module name="jpa.main" options="-parameters" />
       <module name="jpa.test" options="-parameters" />
+      <module name="lombok" options="-parameters" />
+      <module name="lombok.main" options="-parameters" />
+      <module name="lombok.test" options="-parameters" />
       <module name="mongodb" options="-parameters" />
       <module name="mongodb.main" options="-parameters" />
       <module name="mongodb.test" options="-parameters" />
