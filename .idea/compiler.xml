@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="openai-chat-memory.main" />
+        <module name="openai-multi-modal.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -66,6 +66,9 @@
       <module name="openai-chat-memory" options="-parameters" />
       <module name="openai-chat-memory.main" options="-parameters" />
       <module name="openai-chat-memory.test" options="-parameters" />
+      <module name="openai-multi-modal" options="-parameters" />
+      <module name="openai-multi-modal.main" options="-parameters" />
+      <module name="openai-multi-modal.test" options="-parameters" />
       <module name="openai-tool" options="-parameters" />
       <module name="openai-tool.main" options="-parameters" />
       <module name="openai-tool.test" options="-parameters" />
