@@ -50,7 +50,7 @@
       input.value = '';
 
       // 동일 오리진 기준. 다른 도메인이면 CORS 설정 필요(@CrossOrigin 등)
-      const url = `/router/chat?message=${encodeURIComponent(query)}`;
+      const url = `/chat?message=${encodeURIComponent(query)}`;
 
       // SSE 연결 시작
       es = new EventSource(url);
