@@ -1,58 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>WebFlux Chat</title>
+    <title>WebFlux Chat (SSE)</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
         #chat-box { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; white-space: pre-wrap; }
         #user-input { width: 80%; }
         #send-btn { padding: 5px 10px; }
+        #status { color:#666; margin: 6px 0; }
     </style>
 </head>
 <body>
 <h2>OpenAI 대화방</h2>
+<div id="status">대기 중…</div>
 <div id="chat-box"></div>
 <br/>
 <input type="text" id="user-input" placeholder="문의: " />
 <button id="send-btn">전송</button>
+
 <script>
-    const button = document.getElementById('send-btn');
+    const button  = document.getElementById('send-btn');
+    const input   = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
+    const status  = document.getElementById('status');
+
+    let es = null; // 현재 진행중인 EventSource
+
     button.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-    const input = document.getElementById('user-input');
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') sendMessage();
-    });
+    function appendMessage(text) {
+      chatBox.textContent += text;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-    async function sendMessage() {
+    function closeStream() {
+      if (es) { es.close(); es = null; }
+    }
+
+    function sendMessage() {
       const query = input.value.trim();
       if (!query) return;
 
-      appendMessage(`You: ${query}\n`);
+      // 이전 스트림이 남아있다면 정리
+      closeStream();
+
+      appendMessage(`\nYou: ${query}\nAI: `);
       input.value = '';
 
-      // 응답 헤더가 올때까지 기다린다
-      const response = await fetch(`/chat?message=${encodeURIComponent(query)}`);
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+      // 동일 오리진 기준. 다른 도메인이면 CORS 설정 필요(@CrossOrigin 등)
+      const url = `/router/chat?message=${encodeURIComponent(query)}`;
 
-      while (true) {
-        // 응답이 조각 단위로 도착할 때까지 기다린다
-        const { value, done } = await reader.read();
-        if (done) break;
-        // 바이너리 데이터를 텍스트로 변환
-        const chunk = decoder.decode(value, { stream: true });
-        appendMessage(chunk);
-      }
+      // SSE 연결 시작
+      es = new EventSource(url);
 
-      appendMessage('\n');
-    }
+      es.onopen = () => {
+        status.textContent = 'SSE 연결되었습니다';
+      };
 
-    const chatBox = document.getElementById('chat-box');
-    function appendMessage(message) {
-      chatBox.textContent += message;
-      chatBox.scrollTop = chatBox.scrollHeight;
+      // 서버가 기본 event 타입으로 보내는 경우
+      es.onmessage = (evt) => {
+        // Spring WebFlux가 Flux<String>을 TEXT_EVENT_STREAM으로 내보내면
+        // evt.data가 한 토큰/한 줄씩 들어옵니다.
+        appendMessage(evt.data);
+      };
+
+      es.onerror = () => {
+        status.textContent = '연결 종료(정상 완료 또는 오류)';
+        closeStream(); // 사용자 정의 정리 함수
+      };
     }
 </script>
 </body>

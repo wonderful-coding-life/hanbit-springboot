@@ -24,7 +24,7 @@ public class ChatHandler {
 
         return ServerResponse
                 .ok()
-                .contentType(MediaType.TEXT_PLAIN)
+                .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(completion, String.class);
     }
 }
