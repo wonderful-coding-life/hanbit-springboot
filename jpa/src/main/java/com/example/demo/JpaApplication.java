@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -47,5 +45,16 @@ public class JpaApplication implements ApplicationRunner {
         articles = page.getContent();
         //log.info("{}", articles);
         articles.forEach(a -> log.info("{}", a));
+
+        // 동등 비교(Equal) 기반의 탐색(탐침)
+        Example<Member> probe = Example.of(
+                Member.builder().name("윤").age(10).build(),
+                //ExampleMatcher.matchingAll() // = matching()
+                //ExampleMatcher.matching().withIgnoreCase().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                //ExampleMatcher.matchingAny()
+                ExampleMatcher.matchingAny().withIgnoreCase().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+        );
+        var members = memberRepository.findAll(probe);
+        log.info("{}", members);
     }
 }
