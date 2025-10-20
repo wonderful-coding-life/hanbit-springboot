@@ -37,3 +37,15 @@ preparedStatement.setLong(1, 2L);
 - 실행 옵션 > 편집
 - 옵션 수정 > VM 옵션 추가
 - 옵션 추가 -Dsun.stdout.encoding=COMPAT
+
+## 롬복추가
+```declarative
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+```
+
+## Slf4J, Logback 추가
+```declarative
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    implementation 'ch.qos.logback:logback-classic:1.5.19'
+```

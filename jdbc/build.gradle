@@ -10,10 +10,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.mysql:mysql-connector-j:9.2.0'
-    compileOnly 'org.projectlombok:lombok:1.18.38'
-    annotationProcessor 'org.projectlombok:lombok:1.18.38'
-    testImplementation platform('org.junit:junit-bom:5.12.2')
+    implementation 'com.mysql:mysql-connector-j:9.4.0'
+    implementation 'org.postgresql:postgresql:42.7.8'
+    implementation 'com.h2database:h2:2.4.240'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    implementation 'ch.qos.logback:logback-classic:1.5.19'
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+    testImplementation platform('org.junit:junit-bom:5.14.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
