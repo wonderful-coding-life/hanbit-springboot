@@ -27,6 +27,12 @@ INSERT INTO member(name, email, age) VALUES('김도윤', 'DoyunKim@hanbit.co.kr'
 SELECT * FROM member;
 ```
 
+### PreparedStatement
+```java
+PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE id=?");
+preparedStatement.setLong(1, 2L);
+```
+
 ### IntelliJ 터미널에서 System.out.println()으로 출력한 한글이 깨지는 경우
 - 실행 옵션 > 편집
 - 옵션 수정 > VM 옵션 추가

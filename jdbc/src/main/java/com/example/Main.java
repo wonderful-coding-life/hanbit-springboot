@@ -21,3 +21,6 @@ public class Main {
         connection.close();
     }
 }
+
+// PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE id=?");
+// preparedStatement.setLong(1, 2L);
