@@ -8,22 +8,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
+@Order(2)
 public class JpaApplication implements ApplicationRunner {
     private final MemberRepository memberRepository;
     private final ArticleRepository articleRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        var member = Member.builder()
-                .name("윤서준")
-                .email("SeojunYoon@hanbit.co.kr")
-                .age(10).build();
-        memberRepository.save(member);
+        var member = memberRepository.findMember("윤서준").getFirst();
 
         var article = Article.builder()
                 .title("방학 첫날이다")
@@ -33,5 +36,16 @@ public class JpaApplication implements ApplicationRunner {
 
         var articles = articleRepository.findAll();
         log.info("{}", articles);
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(DESC, "id"));
+        var page = articleRepository.findAll(pageable);
+        log.info("{}", page.getNumber()); // page number
+        log.info("{}", page.getNumberOfElements()); // page items
+        log.info("{}", page.getTotalPages());
+        log.info("{}", page.getTotalElements());
+
+        articles = page.getContent();
+        //log.info("{}", articles);
+        articles.forEach(a -> log.info("{}", a));
     }
 }
