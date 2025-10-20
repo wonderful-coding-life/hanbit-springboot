@@ -34,7 +34,10 @@ public class DataInitializer implements ApplicationRunner {
         if (articleRepository.count() == 0) {
             var member = memberRepository.findMember("윤서준").getFirst();
             for (int i = 0; i < 100; i++) {
-                var article = Article.builder().title("제목 " + i).description("본문 " + i).build();
+                var article = Article.builder()
+                        .title("제목 " + i)
+                        .description("본문 " + i)
+                        .member(member).build();
                 articleRepository.save(article);
             }
         }
