@@ -33,6 +33,20 @@
         SELECT * FROM member ORDER BY ${order} ${dir}
     </select>
 
+    <!--
+    <select id="selectAllOrderBy" parameterType="map" resultType="Member">
+        SELECT * FROM member
+        <choose>
+            <when test="order == 'id'"> ORDER BY id </when>
+            <when test="order == 'name'"> ORDER BY name </when>
+            <when test="order == 'age'"> ORDER BY age </when>
+            <otherwise> ORDER BY id </otherwise>
+        </choose>
+        <if test="dir == 'desc'"> DESC </if>
+        <if test="dir == 'asc'"> ASC </if>
+    </select>
+    -->
+
     <select id="selectAllCount">
         SELECT COUNT(*) FROM member
     </select>
