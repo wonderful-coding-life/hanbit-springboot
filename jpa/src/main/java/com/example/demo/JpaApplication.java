@@ -37,10 +37,12 @@ public class JpaApplication implements ApplicationRunner {
 
         Pageable pageable = PageRequest.of(0, 10, Sort.by(DESC, "id"));
         var page = articleRepository.findAll(pageable);
-        log.info("{}", page.getNumber()); // page number
-        log.info("{}", page.getNumberOfElements()); // page items
-        log.info("{}", page.getTotalPages());
-        log.info("{}", page.getTotalElements());
+        log.info("number {}", page.getNumber()); // page number
+        log.info("numberOfElements {}", page.getNumberOfElements()); // page items
+        log.info("totalPages {}", page.getTotalPages());
+        log.info("totalElements {}", page.getTotalElements());
+        log.info("hasNext {}", page.hasNext());
+        log.info("hasPrevious {}", page.hasPrevious());
 
         articles = page.getContent();
         //log.info("{}", articles);
