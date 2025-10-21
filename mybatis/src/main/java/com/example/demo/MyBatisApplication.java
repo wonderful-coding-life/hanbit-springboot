@@ -11,6 +11,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,5 +45,24 @@ public class MyBatisApplication implements ApplicationRunner {
                 .build();
         int inserted = articleMapper.insert(article);
         log.info("Inserted: {}", inserted);
+
+        // subscribeBatch();
+    }
+
+    // 프록시 기반으로 내부에서 호출하는 메서드에는 트랜잭션이 걸리지 않는다.
+    // 외부에서 이 MyBatisApplcation을 호출하는 run 메서드에 @Transactional을 걸어야 한다.
+    //@Transactional
+    public void subscribeBatch() {
+        List<Member> members = List.of(
+                Member.builder().name("홍길동6").email("GildongHong6@hanbit.co.kr").age(16).build(), // 재고 차감
+                Member.builder().name("홍길동7").email("GildongHong7@hanbit.co.kr").age(16).build(),
+                Member.builder().name("홍길동8").email("GildongHong1@hanbit.co.kr").age(16).build(), // 사용자 포인트 차감
+                Member.builder().name("홍길동9").email("GildongHong9@hanbit.co.kr").age(16).build(),
+                Member.builder().name("홍길동10").email("GildongHong10@hanbit.co.kr").age(16).build()
+        );
+        for (Member member : members) {
+            memberMapper.insert(member);
+            log.info("inserted {}", member);
+        }
     }
 }
