@@ -1,3 +1,5 @@
+
+```sql
 CREATE TABLE member (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
@@ -14,3 +16,4 @@ CREATE TABLE article (
    member_id BIGINT,
    FOREIGN KEY(member_id) REFERENCES member(id) ON DELETE CASCADE
 );
+```
