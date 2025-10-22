@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<section class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>제목</td>
+            <td style="width: 20%;">작성자</td>
+            <td style="width: 20%;">수정날짜</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${page.content}">
+            <td th:text="${article.id}">id</td>
+            <td th:text="${article.title}">title</td>
+            <td th:text="${article.name}">author</td>
+            <td th:text="${#calendars.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:19</td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{common::pager(${page}, '/article/list', 5)}"></div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
