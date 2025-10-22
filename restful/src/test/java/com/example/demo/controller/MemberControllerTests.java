@@ -36,7 +36,13 @@ public class MemberControllerTests {
 
         // prepare json string from memberRequest
         String requestString = objectMapper.writeValueAsString(memberRequest);
-        //String requestString = "{ \"name\": \"윤서준\", \"email\": \"SeojunYoon@hanbit.co.kr\", \"age\": 10 }";
+//        String requestString = """
+//                    {
+//                        "name": "윤서준",
+//                        "email": "SeojunYoon@hanbit.co.kr",
+//                        "age": 10
+//                    }
+//                """;
 
         // prepare request builder
         var requestBuilder = MockMvcRequestBuilders.post("/api/members")
@@ -49,7 +55,12 @@ public class MemberControllerTests {
         MvcResult mvcResult = mockMvc.perform(requestBuilder)
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{ \"name\": \"윤서준\" }", JsonCompareMode.LENIENT))
+                .andExpect(content().json("""
+                        {
+                            "name": "윤서준",
+                            "email": "SeojunYoon@hanbit.co.kr"
+                        }
+                        """, JsonCompareMode.LENIENT))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andReturn();
 
