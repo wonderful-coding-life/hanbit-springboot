@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.exception.ExceptionDetails;
 import com.example.demo.exception.MemberNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,10 +30,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MemberNotFoundException.class)
-    public ResponseEntity<ExceptionDetails> handleNotFoundException(MemberNotFoundException ex) {
+    public ResponseEntity<ExceptionDetails> handleNotFoundException(MemberNotFoundException ex, HttpServletRequest request) {
+        String uri = request.getRequestURI();
+        String query = request.getQueryString();
+        String path = (query == null) ? uri : uri + "?" + query;
         return ResponseEntity.status(404).body(ExceptionDetails.builder()
                 .timestamp(new Date())
                 .status(404)
+                .path(path)
                 .reason("해당 아이디의 회원이 없습니다.").build());
     }
 }

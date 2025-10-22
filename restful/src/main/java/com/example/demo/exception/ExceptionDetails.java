@@ -15,4 +15,5 @@ public class ExceptionDetails {
     private Date timestamp;
     private Integer status;
     private String reason;
+    private String path;
 }
