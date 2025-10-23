@@ -1,51 +1,20 @@
-<!doctype html>
-<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MVC demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>회원가입</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <form th:object="${memberForm}" th:action="@{/signup}" method="post" novalidate>
-                    <!-- 이름 -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">이름</label>
-                        <input id="name" type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{name}">이름 에러</div>
-                    </div>
-
-                    <!-- 이메일 -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">이메일</label>
-                        <input id="email" type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{email}">이메일 에러</div>
-                    </div>
-
-                    <!-- 비밀번호, type이 password인 경우에는 th:field가 th:value를 의도적으로 제외함 -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">비밀번호</label>
-                        <input id="password" type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{password}">비밀번호 에러</div>
-                    </div>
-
-                    <!-- 비밀번호 확인 -->
-                    <div class="mb-3">
-                        <label for="passwordConfirm" class="form-label">비밀번호 확인</label>
-                        <input id="passwordConfirm" type="password" class="form-control" th:field="*{passwordConfirm}" th:errorclass="is-invalid"/>
-                        <div id="passwordConfirmFeedback" class="invalid-feedback" th:errors="*{passwordConfirm}">비밀번호 확인 에러</div>
-                    </div>
-
-                    <!-- 가입 버튼 -->
-                    <button type="submit" class="btn btn-primary w-100">가입하기</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<form th:object="${memberForm}" th:action="@{/signup}" method="post">
+    <input type="text" name="name" th:value="*{name}" placeholder="이름"/><br>
+    <div th:errors="*{name}">이름 에러</div>
+    <input type="text" name="email" th:value="*{email}" placeholder="이메일"/><br>
+    <div th:errors="*{email}">이메일 에러</div>
+    <input type="password" name="password" placeholder="패스워드"/><br>
+    <div th:errors="*{password}">패스워드 에러</div>
+    <input type="password" name="passwordConfirm" placeholder="패스워드"/><br>
+    <div th:errors="*{passwordConfirm}">패스워드 컨펌</div>
+    <button>가입</button>
+</form>
 </body>
 </html>
