@@ -92,10 +92,10 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-chat-memory" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-chat-model" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/openai-chat-memory" />
+            <option value="$PROJECT_DIR$/openai-chat-model" />
           </set>
         </option>
       </GradleProjectSettings>

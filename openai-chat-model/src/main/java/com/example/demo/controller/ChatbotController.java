@@ -10,7 +10,6 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-public class ChatController {
+public class ChatbotController {
 
     @Autowired
     private OpenAiChatModel chatModel;
@@ -27,7 +26,7 @@ public class ChatController {
     @Autowired
     private ChatMemory chatMemory;
 
-    @GetMapping("/chat")
+    @GetMapping("/api/chatbot")
     public String getChat(@RequestParam("id") String id, @RequestParam("message") String message) {
 
         // 채팅 시작시 시스템 메시지 추가되며 윈도우 사이즈가 넘어가더라도 유지

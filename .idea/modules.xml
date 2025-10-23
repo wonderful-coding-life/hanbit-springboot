@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/hanbit-springboot.iml" filepath="$PROJECT_DIR$/.idea/hanbit-springboot.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jdbc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mybatis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mybatis.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-chat-memory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-chat-memory.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-chat-model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-chat-model.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-image-audio.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-image-audio.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-multi-modal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-multi-modal.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.main.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.main.iml" />
