@@ -3,19 +3,32 @@ package com.example.demo;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.embedding.Embedding;
-import org.springframework.ai.embedding.EmbeddingResponse;
-import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.document.DocumentReader;
+import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.reader.TextReader;
+import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
 
 @SpringBootTest
-public class OpenAiEmbeddingModelTests {
-    private static final Logger log = LoggerFactory.getLogger(OpenAiEmbeddingModelTests.class);
+public class OpenAiVectorStoreTests {
+    private static final Logger log = LoggerFactory.getLogger(OpenAiVectorStoreTests.class);
 
     @Autowired
-    private OpenAiEmbeddingModel embeddingModel;
+    private PgVectorStore vectorStore;
+
+    @Autowired
+    private OpenAiChatModel chatModel;
 
     private String news1 = """
             오픈AI는 실시간으로 대화 상대를 보고 그 사람의 말을 들으면서 자연스럽게 대화하는 챗GPT를 출시했다고 12일(현지시간) 밝혔다. 지난 5월 듣고 말하는 기능을 처음 공개한 지 7개월 만이다. 지난 9월에는 한층 더 자연스러운 대화가 가능한 챗GPT의 고급 음성 모드를 출시한 바 있다. 이 음성 모드는 때론 활발하거나 정중한 톤의 목소리를 골라서 대화할 수 있게 한 기능이다.
@@ -57,29 +70,69 @@ public class OpenAiEmbeddingModelTests {
             블라디미르 푸틴 러시아 대통령은 올해 초 나토 병력의 우크라이나 파병에 대해 "핵전쟁의 실질적 위협을 키울 것"이라고 말했습니다.
             WSJ은 "측근들에 따르면 트럼프 당선인은 아직 우크라이나에 대해 깊이 고민하거나 특정한 계획을 고집하고 있지 않다"며 "국가안보팀이 구성되고, 동맹국들은 물론 잠정적으로는 푸틴 대통령과도 대화한 뒤에 핵심적인 결정이 이뤄질 것"이라고 전망했습니다.
             """;
-    private String message = "최근 삼성 가상 헤드셋 정보를 알려 주세요";
 
     @Test
-    public void testEmbeddingModelSimple() {
-        log.info("dimemsion {}", embeddingModel.dimensions());
-
-        float[] vector = embeddingModel.embed(news1);
-        log.info("vector = {}", vector);
+    public void testVectorStore() {
+        List<Document> documents = List.of(
+                new Document(news1),
+                new Document(news2),
+                new Document(news3)
+        );
+        vectorStore.write(documents);
     }
 
     @Test
-    public void testEmbeddingModelResponse() {
-        EmbeddingResponse response = embeddingModel.embedForResponse(List.of(news1, news2));
+    public void testTextReader() {
+        DocumentReader reader = new TextReader("classpath:/운수좋은날.txt");
+        // TextReader reader = new TextReader("file:/C:/temp/sample.txt");
+        // TextReader reader = new TextReader("file:/home/user/sample.txt");
+        // TextReader reader = new TextReader("https://example.com/data/sample.txt");
+        // TextReader는 기본적으로 하나의 Document를 만들지만 이것을 List<Document>로 만드는 것은 RAG 구조를 염두에 두고 만들었기 때문
+        // log.info("{}", reader.read().getFirst().getText());
 
-        log.info("metadata.model = {}", response.getMetadata().getModel());
-        log.info("metadata.usage.promptTokens = {}, generationTokens = {}, totalTokens = {}",
-                response.getMetadata().getUsage().getPromptTokens(),
-                response.getMetadata().getUsage().getCompletionTokens(),
-                response.getMetadata().getUsage().getTotalTokens());
+        List<Document> documents = reader.read();
+        documents.forEach(document -> document.getMetadata().put("category", "소설"));
+        TokenTextSplitter splitter = new TokenTextSplitter();
+        vectorStore.write(splitter.split(documents));
+    }
 
-        for (Embedding embedding : response.getResults()) {
-            float[] vector = embedding.getOutput();
-            log.info("vector = {}", vector);
-        }
+    @Test
+    public void testPdfReader() throws IOException {
+        DocumentReader reader = new PagePdfDocumentReader("classpath:/인공지능_시대의_예술.pdf");
+        List<Document> documents = reader.read();
+        documents.forEach(document -> document.getMetadata().put("article", "ai")); // ai, avata
+        TokenTextSplitter splitter = new TokenTextSplitter();
+        vectorStore.write(splitter.split(documents));
+    }
+
+    @Test
+    public void testSimilaritySearch() {
+        String question = "김첨지 아내는 무슨 병에 걸렸나요?";
+        //String question = "인공지능을 사용하면 일반 사람들도 예술가가 될 수 있을까?";
+
+        // Simple format
+        //List<Document> documents = vectorStore.similaritySearch(question);
+
+        List<Document> documents = vectorStore.similaritySearch(SearchRequest.builder()
+                .query(question)
+                .topK(3)
+                //.filterExpression("article == 'ai'").build());
+                .filterExpression("source == '운수좋은날.txt'").build()
+        );
+
+        var information = String.join("\n", documents.stream().map(Document::getText).toList());
+
+        String prompt = MessageFormat.format("""
+                다음의 정보를 기반으로 하여 답을 하고, 정보가 없는 경우에는 모른다고 답변 하세요.
+                [정보]
+                {0}
+                [질문]
+                {1}
+                """, information, question);
+
+        Message message = new UserMessage(prompt);
+        String result = chatModel.call(message);
+
+        log.info("{}", result);
     }
 }
