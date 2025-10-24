@@ -112,6 +112,12 @@ public class OpenAiEmbeddingModelTests {
     @Test
     public void textReader() {
         DocumentReader reader = new TextReader("classpath:/운수좋은날.txt");
+        // TextReader reader = new TextReader("file:/C:/temp/sample.txt");
+        // TextReader reader = new TextReader("file:/home/user/sample.txt");
+        // TextReader reader = new TextReader("https://example.com/data/sample.txt");
+        // TextReader는 기본적으로 하나의 Document를 만들지만 이것을 List<Document>로 만드는 것은 RAG 구조를 염두에 두고 만들었기 때문
+        // log.info("{}", reader.read().getFirst().getText());
+
         List<Document> documents = reader.read();
         documents.forEach(document -> document.getMetadata().put("category", "소설"));
         TokenTextSplitter splitter = new TokenTextSplitter();

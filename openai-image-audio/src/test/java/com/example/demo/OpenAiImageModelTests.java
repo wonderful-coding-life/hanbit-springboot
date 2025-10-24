@@ -45,7 +45,7 @@ public class OpenAiImageModelTests {
 
         if (imageResponse.getResult().getOutput().getB64Json() != null) {
             log.info("Base64Json {}", imageResponse.getResult().getOutput().getB64Json());
-            byte[] imageBytes = Base64.getDecoder().decode(imageResponse.getResult().getOutput().getB64Json());
+            byte[] imageBytes = Base64.getDecoder().decode(imageResponse.getResult().getOutput().getB64Json());;
             // dall-e-3는 png 포맷만 지원, 다른 포맷이 필요하다면 애플리케이션에서 변환해야 함
             Files.write(Paths.get("D:\\archive\\image\\openai-image.png"), imageBytes);
         }
