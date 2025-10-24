@@ -84,10 +84,10 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-audio" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/openai" />
+            <option value="$PROJECT_DIR$/openai-audio" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -100,18 +100,26 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-image-audio" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-image" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/openai-image-audio" />
+            <option value="$PROJECT_DIR$/openai-image" />
           </set>
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-multi-modal" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-moderation" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/openai-multi-modal" />
+            <option value="$PROJECT_DIR$/openai-moderation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-rag" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/openai-rag" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="openai-chat-model.main" />
+        <module name="mvc.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,9 +22,21 @@
       <module name="ch01-ioc" target="21" />
       <module name="ch01-ioc.main" target="21" />
       <module name="ch01-ioc.test" target="21" />
+      <module name="com.example.openai-moderation" target="21" />
+      <module name="com.example.openai-moderation.main" target="21" />
+      <module name="com.example.openai-moderation.test" target="21" />
       <module name="demo" target="21" />
       <module name="demo.main" target="21" />
       <module name="demo.test" target="21" />
+      <module name="openai" target="21" />
+      <module name="openai-image-audio" target="21" />
+      <module name="openai-image-audio.main" target="21" />
+      <module name="openai-image-audio.test" target="21" />
+      <module name="openai-multi-modal" target="21" />
+      <module name="openai-multi-modal.main" target="21" />
+      <module name="openai-multi-modal.test" target="21" />
+      <module name="openai.main" target="21" />
+      <module name="openai.test" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -41,6 +53,9 @@
       <module name="ch01-ioc" options="-parameters" />
       <module name="ch01-ioc.main" options="-parameters" />
       <module name="ch01-ioc.test" options="-parameters" />
+      <module name="com.example.openai-moderation" options="-parameters" />
+      <module name="com.example.openai-moderation.main" options="-parameters" />
+      <module name="com.example.openai-moderation.test" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo.main" options="-parameters" />
       <module name="demo.test" options="-parameters" />
@@ -63,18 +78,30 @@
       <module name="mybatis.main" options="-parameters" />
       <module name="mybatis.test" options="-parameters" />
       <module name="openai" options="-parameters" />
+      <module name="openai-audio" options="-parameters" />
+      <module name="openai-audio.main" options="-parameters" />
+      <module name="openai-audio.test" options="-parameters" />
       <module name="openai-chat-memory" options="-parameters" />
       <module name="openai-chat-memory.main" options="-parameters" />
       <module name="openai-chat-memory.test" options="-parameters" />
       <module name="openai-chat-model" options="-parameters" />
       <module name="openai-chat-model.main" options="-parameters" />
       <module name="openai-chat-model.test" options="-parameters" />
+      <module name="openai-image" options="-parameters" />
       <module name="openai-image-audio" options="-parameters" />
       <module name="openai-image-audio.main" options="-parameters" />
       <module name="openai-image-audio.test" options="-parameters" />
+      <module name="openai-image.main" options="-parameters" />
+      <module name="openai-image.test" options="-parameters" />
+      <module name="openai-moderation" options="-parameters" />
+      <module name="openai-moderation.main" options="-parameters" />
+      <module name="openai-moderation.test" options="-parameters" />
       <module name="openai-multi-modal" options="-parameters" />
       <module name="openai-multi-modal.main" options="-parameters" />
       <module name="openai-multi-modal.test" options="-parameters" />
+      <module name="openai-rag" options="-parameters" />
+      <module name="openai-rag.main" options="-parameters" />
+      <module name="openai-rag.test" options="-parameters" />
       <module name="openai-tool" options="-parameters" />
       <module name="openai-tool.main" options="-parameters" />
       <module name="openai-tool.test" options="-parameters" />
