@@ -33,7 +33,7 @@ public class Main {
 
         Long id = insertMemberReturningGeneratedKey(connection, "김도윤", "DoyunKim@hanbit.co.kr", 10);
 
-        var member = selectMember(connection, id);
+        var member = selectMemberById(connection, id);
         if (member != null) {
             member.setAge(11);
             updateMember(connection, member);
@@ -41,7 +41,8 @@ public class Main {
 
         deleteMember(connection, id - 1);
 
-        selectMember(connection);
+        //selectMember(connection);
+        selectAll(connection);
     }
 
     private void dropTable(Connection connection) throws SQLException {
@@ -123,9 +124,9 @@ public class Main {
         return preparedStatement.executeUpdate();
     }
 
-    private void selectMember(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member");
-        ResultSet resultSet = preparedStatement.executeQuery();
+    private void selectAll(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM member");
         while (resultSet.next()) {
             var member = new Member(
                     resultSet.getLong("id"),
@@ -136,7 +137,7 @@ public class Main {
         }
     }
 
-    private Member selectMember(Connection connection, Long id) throws SQLException {
+    private Member selectMemberById(Connection connection, Long id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE id=?");
         preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
