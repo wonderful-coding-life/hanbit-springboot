@@ -54,7 +54,7 @@ public class Main {
     private void createTable(Connection connection) throws SQLException {
         String createTable = """
                 CREATE TABLE IF NOT EXISTS member (
-                    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+                    id BIGINT AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(128) NOT NULL,
                     email VARCHAR(256) NOT NULL UNIQUE,
                     age INTEGER
@@ -68,7 +68,7 @@ public class Main {
     private void createTablePostgres(Connection connection) throws SQLException {
         String createTable = """
                 CREATE TABLE IF NOT EXISTS member (
-                    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                     name VARCHAR(128) NOT NULL,
                     email VARCHAR(256) NOT NULL UNIQUE,
                     age INTEGER
