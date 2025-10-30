@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import java.util.function.Supplier;
 
@@ -47,7 +49,7 @@ public class SecurityConfig {
     }
 
     // Step 2 - 권한 인가
-    @Bean
+    //@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -115,4 +117,37 @@ public class SecurityConfig {
                 .httpBasic(withDefaults());
         return http.build();
     }
+
+    // Step 6
+    // Session concurrency
+    //
+    @Bean
+    public SecurityFilterChain securityFilterChainConcurrent(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "/product").permitAll()
+                        .requestMatchers("/member/**").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().authenticated())
+                .formLogin(withDefaults())
+                .logout(withDefaults())
+                .sessionManagement(session -> session
+                        .sessionConcurrency(concurrency -> concurrency
+                                .maximumSessions(1)
+                                // true: 2번째 로그인 "거부", false: 2번째 로그인 허용하고 기존 세션 만료
+                                // 2번쨰 로그인 "거부"한 상태에서 첫번째 로그인한 컴퓨터에서 브라우저를 종료하거나 컴퓨터를 끄더라도 서버에서 세션은 여전히 유효하기 때문에 두번째 컴퓨터에서 로그인할 수 없다. 이 경우 필요에 따라 세션 타임 아웃 시간(server.servlet.session.timeout=20m)을 줄인다. 디폴트는 30분.
+                                .maxSessionsPreventsLogin(true)
+                                .expiredUrl("/login?expired")));
+        return http.build();
+    }
+
+    // Concurrency를 구현하려면 이것이 있어야 한다.
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
+    // 기타 Session
+    // 컨트롤러에서 HttpSession을 메서드를 통해 주입 받은 후 setAttribute, getAttribute로 값을 넣거나 가져올 수 있다.
+    // 컨트롤러에서 @AuthenticationPrincipal UserDetails userDetails 이렇게 하면 세션에 있는 정보를 전달함 (SecurityContextHolder.getContext().getAuthentication().getPrincipal() 과 동일)
+    // 만약 이름만 필요하다면 public String getHome(Principal principal) 와 같이 Principal을 애노테이션 없이 가져와서 principal.getName() 이렇게 사용할 수 있다.
 }
