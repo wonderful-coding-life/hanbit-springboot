@@ -47,7 +47,7 @@ public class SecurityConfig {
     }
 
     // Step 2 - 권한 인가
-    //@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -60,7 +60,7 @@ public class SecurityConfig {
     }
 
     // Step 3 - 로그인, 로그아웃 폼 커스텀
-    @Bean
+    //@Bean
     public SecurityFilterChain securityFilterChainLoginLogout(HttpSecurity http) throws Exception {
         // "/" redirects to "/home" and both are permitted by all requests
         http
@@ -96,5 +96,23 @@ public class SecurityConfig {
                         "/image/**");
             }
         };
+    }
+
+    // Step 5 - Http Basic Authentication for RESTful API
+    // 헤더이름: Authorization 헤더값: Basic <base64(username:password)>
+    // SeojunYoon@hanbit.co.kr:password ==> U2VvanVuWW9vbkBoYW5iaXQuY28ua3I6cGFzc3dvcmQ=
+    // 자바에서 만들기: Base64.getEncoder().encodeToString(("username:password").getBytes())
+    //@Bean
+    public SecurityFilterChain securityFilterChainHttpBasic(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "/product").permitAll()
+                        .requestMatchers("/member/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().authenticated())
+                .formLogin(withDefaults())
+                .logout(withDefaults())
+                .httpBasic(withDefaults());
+        return http.build();
     }
 }
