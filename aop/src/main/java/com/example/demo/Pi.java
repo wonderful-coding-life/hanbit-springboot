@@ -23,6 +23,7 @@ public class Pi {
     }
 
     @Async
+    @PrintExecutionTime
     CompletableFuture<Double> calculateAsync(int points) {
         int circle = 0;
         for (long i = 0; i < points; i++) {
