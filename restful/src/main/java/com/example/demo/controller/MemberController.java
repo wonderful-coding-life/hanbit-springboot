@@ -10,11 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/api/members")
@@ -34,9 +37,17 @@ public class MemberController {
         return memberService.findAll(name);
     }
 
-    @GetMapping("/{id}")
+    //@GetMapping("/{id}")
     public MemberResponse get(@PathVariable("id") Long id) {
         return memberService.findById(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MemberResponse> getResponseEntity(@PathVariable Long id) {
+        MemberResponse memberResponse = memberService.findById(id);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS)) // HTTP 캐시 헤더
+                .body(memberResponse);
     }
 
     @PutMapping("/{id}")
