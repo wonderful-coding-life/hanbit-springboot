@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DemoApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		var context = SpringApplication.run(DemoApplication.class, args);
+        System.out.println("beans count = " + context.getBeanDefinitionCount());
+        for (String beanName : context.getBeanDefinitionNames()) {
+            System.out.println("bean " + beanName);
+        }
 	}
 }
