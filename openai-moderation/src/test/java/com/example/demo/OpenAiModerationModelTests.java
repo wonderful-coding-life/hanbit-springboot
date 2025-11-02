@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.moderation.*;
 import org.springframework.ai.openai.OpenAiModerationModel;
+import org.springframework.ai.openai.OpenAiModerationOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -43,16 +44,18 @@ public class OpenAiModerationModelTests {
             """;
 
     // 현재 선택할 수 있는 옵션은 모델만 있으며, 현재 "text-moderation-latest"은 deprecated되었고 "omni-moderation-latest"가 새롭게 지원
-    // 옵션에서 모델을 지정하지 않으면 디폴트로 "omni-moderation-latest"가 사용
     // var options = OpenAiModerationOptions.builder().model("omni-moderation-latest").build();
     //    In April, we announced the deprecation of the following text-moderation models in the OpenAI API:
     //    text-moderation-007
     //    text-moderation-stable
     //    text-moderation-latest
     //    Access to these models in the API will end on October 27, 2025.
+    //    current model is "omni-moderation-latest"
     @Test
     public void testOpenAiModerationModelOptions() {
-        ModerationPrompt moderationPrompt = new ModerationPrompt(message);
+        OpenAiModerationOptions options = OpenAiModerationOptions.builder()
+                .model("omni-moderation-latest").build();
+        ModerationPrompt moderationPrompt = new ModerationPrompt(message, options);
         ModerationResponse response = openAiModerationModel.call(moderationPrompt);
 
         Moderation moderation = response.getResult().getOutput();
