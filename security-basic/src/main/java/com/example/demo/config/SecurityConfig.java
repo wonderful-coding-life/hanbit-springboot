@@ -2,12 +2,13 @@ package com.example.demo.config;
 
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,16 +16,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionCreatedEvent;
+import org.springframework.security.web.session.HttpSessionDestroyedEvent;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.session.HttpSessionIdChangedEvent;
 
+import java.time.Instant;
 import java.util.function.Supplier;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@Slf4j
 public class SecurityConfig {
 
-    // Step 1 - 사용자 인증
+    // Step 1 - 사용자 인증과 패스워드 인코더
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -48,8 +54,41 @@ public class SecurityConfig {
         };
     }
 
+    // 손님(세션 생성) -> 로그인(세션 아이디 변경) -> 로그아웃(세션 삭제, 새로운 손님 세션 생성)
+    // 서블릿 컨테이너에서 발생하는 세션 이벤트를 스프링 내부로 "브릿지(bridge)" 해주는 클래스
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
+    @EventListener
+    public void onSessionCreatedEvent(HttpSessionCreatedEvent event) {
+        log.info("created session id {} at {}",
+                event.getSession().getId(),
+                Instant.ofEpochMilli(event.getSession().getCreationTime()));
+    }
+
+    @EventListener
+    public void onSessionIdChangedEvent(HttpSessionIdChangedEvent event) {
+        log.info("session id changed from {} to {}",
+                event.getOldSessionId(),
+                event.getNewSessionId());
+    }
+
+    @EventListener
+    public void onSessionDestroyedEvent(HttpSessionDestroyedEvent event) {
+        log.info("destroyed session id {}, and last accessed at {}",
+                event.getSession().getId(),
+                Instant.ofEpochMilli(event.getSession().getLastAccessedTime()));
+    }
+
+    // 기타 Session
+    // 컨트롤러에서 HttpSession을 메서드를 통해 주입 받은 후 setAttribute, getAttribute로 값을 넣거나 가져올 수 있다.
+    // 컨트롤러에서 @AuthenticationPrincipal UserDetails userDetails 이렇게 하면 세션에 있는 정보를 전달함 (SecurityContextHolder.getContext().getAuthentication().getPrincipal() 과 동일)
+    // 만약 이름만 필요하다면 public String getHome(Principal principal) 와 같이 Principal을 애노테이션 없이 가져와서 principal.getName() 이렇게 사용할 수 있다.
+
     // Step 2 - 권한 인가
-    //@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -83,24 +122,8 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Step 4 - 스프링 시큐리티에서 무시해야 할 패턴을 등록한다.
-    // 정적 리소스 또는 필요에 따라 h2-console과 같은 패턴을 무시하도록 설정한다.
-    // 스프링에서는 이러한 패턴들도 시큐리티 필터체인을 구성할 때 permitAll 하는 방식을 권장한다.
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return new WebSecurityCustomizer() {
-            @Override
-            public void customize(WebSecurity web) {
-                web.ignoring().requestMatchers(
-                        "/h2-console/**",
-                        "/css/**",
-                        "/js/**",
-                        "/image/**");
-            }
-        };
-    }
 
-    // Step 5 - Http Basic Authentication for RESTful API
+    // Step 4 - Http Basic Authentication for RESTful API
     // 헤더이름: Authorization 헤더값: Basic <base64(username:password)>
     // SeojunYoon@hanbit.co.kr:password ==> U2VvanVuWW9vbkBoYW5iaXQuY28ua3I6cGFzc3dvcmQ=
     // 자바에서 만들기: Base64.getEncoder().encodeToString(("username:password").getBytes())
@@ -118,10 +141,9 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Step 6
-    // Session concurrency
-    //
-    @Bean
+    // Step 5
+    // Session concurrency (HttpSessionEventPublisher 필요)
+    //@Bean
     public SecurityFilterChain securityFilterChainConcurrent(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -140,14 +162,20 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Concurrency를 구현하려면 이것이 있어야 한다.
+    // Step 6 - 스프링 시큐리티에서 무시해야 할 패턴을 등록한다.
+    // 정적 리소스 또는 필요에 따라 h2-console과 같은 패턴을 무시하도록 설정한다.
+    // 스프링에서는 이러한 패턴들도 시큐리티 필터체인을 구성할 때 permitAll 하는 방식을 권장한다.
     @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
-        return new HttpSessionEventPublisher();
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return new WebSecurityCustomizer() {
+            @Override
+            public void customize(WebSecurity web) {
+                web.ignoring().requestMatchers(
+                        "/h2-console/**",
+                        "/css/**",
+                        "/js/**",
+                        "/image/**");
+            }
+        };
     }
-
-    // 기타 Session
-    // 컨트롤러에서 HttpSession을 메서드를 통해 주입 받은 후 setAttribute, getAttribute로 값을 넣거나 가져올 수 있다.
-    // 컨트롤러에서 @AuthenticationPrincipal UserDetails userDetails 이렇게 하면 세션에 있는 정보를 전달함 (SecurityContextHolder.getContext().getAuthentication().getPrincipal() 과 동일)
-    // 만약 이름만 필요하다면 public String getHome(Principal principal) 와 같이 Principal을 애노테이션 없이 가져와서 principal.getName() 이렇게 사용할 수 있다.
 }
