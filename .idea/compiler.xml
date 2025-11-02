@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
+        </processorPath>
+        <module name="openai-webflux.main" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="aop" options="-parameters" />
+      <module name="aop.main" options="-parameters" />
+      <module name="aop.test" options="-parameters" />
+      <module name="bbs" options="-parameters" />
+      <module name="bbs.main" options="-parameters" />
+      <module name="bbs.test" options="-parameters" />
+      <module name="ioc" options="-parameters" />
+      <module name="ioc.main" options="-parameters" />
+      <module name="ioc.test" options="-parameters" />
+      <module name="jpa" options="-parameters" />
+      <module name="jpa.main" options="-parameters" />
+      <module name="jpa.test" options="-parameters" />
+      <module name="lombok" options="-parameters" />
+      <module name="lombok.main" options="-parameters" />
+      <module name="lombok.test" options="-parameters" />
+      <module name="mongodb" options="-parameters" />
+      <module name="mongodb.main" options="-parameters" />
+      <module name="mongodb.test" options="-parameters" />
+      <module name="mvc" options="-parameters" />
+      <module name="mvc.main" options="-parameters" />
+      <module name="mvc.test" options="-parameters" />
+      <module name="mybatis" options="-parameters" />
+      <module name="mybatis.main" options="-parameters" />
+      <module name="mybatis.test" options="-parameters" />
+      <module name="openai-audio" options="-parameters" />
+      <module name="openai-audio.main" options="-parameters" />
+      <module name="openai-audio.test" options="-parameters" />
+      <module name="openai-chat-model" options="-parameters" />
+      <module name="openai-chat-model.main" options="-parameters" />
+      <module name="openai-chat-model.test" options="-parameters" />
+      <module name="openai-image" options="-parameters" />
+      <module name="openai-image.main" options="-parameters" />
+      <module name="openai-image.test" options="-parameters" />
+      <module name="openai-moderation" options="-parameters" />
+      <module name="openai-moderation.main" options="-parameters" />
+      <module name="openai-moderation.test" options="-parameters" />
+      <module name="openai-rag" options="-parameters" />
+      <module name="openai-rag.main" options="-parameters" />
+      <module name="openai-rag.test" options="-parameters" />
+      <module name="openai-tool" options="-parameters" />
+      <module name="openai-tool.main" options="-parameters" />
+      <module name="openai-tool.test" options="-parameters" />
+      <module name="openai-webflux" options="-parameters" />
+      <module name="openai-webflux.main" options="-parameters" />
+      <module name="openai-webflux.test" options="-parameters" />
+      <module name="querydsl" options="-parameters" />
+      <module name="querydsl.main" options="-parameters" />
+      <module name="querydsl.test" options="-parameters" />
+      <module name="restful" options="-parameters" />
+      <module name="restful.main" options="-parameters" />
+      <module name="restful.test" options="-parameters" />
+      <module name="security" options="-parameters" />
+      <module name="security-basic" options="-parameters" />
+      <module name="security-basic.main" options="-parameters" />
+      <module name="security-basic.test" options="-parameters" />
+      <module name="security.main" options="-parameters" />
+      <module name="security.test" options="-parameters" />
+      <module name="spring-jdbc" options="-parameters" />
+      <module name="spring-jdbc.main" options="-parameters" />
+      <module name="spring-jdbc.test" options="-parameters" />
+      <module name="thymeleaf" options="-parameters" />
+      <module name="thymeleaf.main" options="-parameters" />
+      <module name="thymeleaf.test" options="-parameters" />
+    </option>
+  </component>
+</project>
