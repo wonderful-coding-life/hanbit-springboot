@@ -5,11 +5,16 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.42/8365263844ebb62398e0dc33057ba10ba472d3b8/lombok-1.18.42.jar" />
         </processorPath>
-        <module name="restful.main" />
+        <module name="props.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="21" />
+      <module name="demo.main" target="21" />
+      <module name="demo.test" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -19,6 +24,9 @@
       <module name="bbs" options="-parameters" />
       <module name="bbs.main" options="-parameters" />
       <module name="bbs.test" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="demo.main" options="-parameters" />
+      <module name="demo.test" options="-parameters" />
       <module name="ioc" options="-parameters" />
       <module name="ioc.main" options="-parameters" />
       <module name="ioc.test" options="-parameters" />
@@ -58,6 +66,9 @@
       <module name="openai-webflux" options="-parameters" />
       <module name="openai-webflux.main" options="-parameters" />
       <module name="openai-webflux.test" options="-parameters" />
+      <module name="props" options="-parameters" />
+      <module name="props.main" options="-parameters" />
+      <module name="props.test" options="-parameters" />
       <module name="querydsl" options="-parameters" />
       <module name="querydsl.main" options="-parameters" />
       <module name="querydsl.test" options="-parameters" />

@@ -157,6 +157,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/props" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/props" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/querydsl" />
         <option name="gradleJvm" value="temurin-21" />
         <option name="modules">
