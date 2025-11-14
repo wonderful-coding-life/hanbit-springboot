@@ -41,4 +41,13 @@ private boolean enabled;
 ```
 ### AppProperties와 같은 객체를 만들어서 의존성 주입 받아 사용하는 방법
 - @ConfigurationProperties
- 
+
+### 어필리케이션 실행 인자가 우선
+- application.yaml -> application.properties -> 환경변수 -> 실행 인자
+- 환경변수 변환: 소문자 -> 대문자, . -> _, 하이픈(-) 그대로
+```shell
+export APP_SCHEDULER_ORDER-FULFILLMENT_ENABLED=false
+```
+```shell
+java -jar props.jar --app.scheduler.order-fulfillment.enabled=false
+```
