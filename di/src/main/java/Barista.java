@@ -1,4 +1,4 @@
-public class CoffeeMaker {
+public class Barista {
     private CoffeeMachine coffeeMachine;
 
     public void setCoffeeMachine(CoffeeMachine coffeeMachine) {

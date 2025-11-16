@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class CafeApplication implements ApplicationRunner {
+public class SpringCafe implements ApplicationRunner {
     @Autowired
-    private CoffeeMaker coffeeMaker;
+    private Barista barista;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        coffeeMaker.makeCoffees();
+        barista.makeCoffees();
 
         // 일반형 인자 file1.txt file2.txt
         // java -jar app.jar --name=hong --age=20 file1.txt file2.txt

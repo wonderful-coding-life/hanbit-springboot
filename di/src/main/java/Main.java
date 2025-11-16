@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        CoffeeMaker coffeeMaker = new CoffeeMaker();
-        coffeeMaker.setCoffeeMachine(new DripCoffeeMachine());
-        coffeeMaker.makeCoffee();
+        Barista barista = new Barista();
+        barista.setCoffeeMachine(new DripCoffeeMachine());
+        barista.makeCoffee();
     }
 }
