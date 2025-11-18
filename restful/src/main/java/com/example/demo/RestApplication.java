@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.config.MyRestClient;
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+
+// RestTemplate -> WebClient -> RestClient(blocking만 지원)로 발전
+// RestClient는 RestTemplate의 공식적인 미래, WebClient보다 가볍고 RestTemplate보다 현대적
 @Component
 @Slf4j
 public class RestApplication implements ApplicationRunner {
@@ -21,8 +26,16 @@ public class RestApplication implements ApplicationRunner {
     @Autowired
     private WebClient webClient;
 
+    @Autowired
+    private MyRestClient myRestClient; // RestClient + HttpServiceProxyFactory(@HttpExchange)
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        // 가장 심플
+        // @HttpExchange로 MyRestClient 인터페이스 정의
+        // @Configuration에서 RestClient를 사용하여 Bean 등록
+        testMyRestClient();
+
         var memberId = postMember();
         if (memberId != null) {
             var memberResponse = getMember(memberId);
@@ -102,5 +115,10 @@ public class RestApplication implements ApplicationRunner {
             return postResponse.getBody();
         }
         return null;
+    }
+
+    private void testMyRestClient() {
+        List<MemberResponse> memberResponses = myRestClient.getMembers();
+        memberResponses.forEach(member -> log.info(">> 회원 {}", member));
     }
 }
