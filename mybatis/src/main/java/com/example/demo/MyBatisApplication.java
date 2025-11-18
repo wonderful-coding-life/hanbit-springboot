@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -41,10 +42,14 @@ public class MyBatisApplication implements ApplicationRunner {
         Article article = Article.builder()
                 .title("Hello, MyBatis")
                 .description("MyBatis is an SQL Mapper framework")
+                .created(LocalDateTime.now())
+                .updated(LocalDateTime.now())
                 .memberId(member.getId())
                 .build();
         int inserted = articleMapper.insert(article);
+        log.info("Inserted: rowCount {}", inserted);
         log.info("Inserted: {}", inserted);
+
 
         // subscribeBatch();
     }

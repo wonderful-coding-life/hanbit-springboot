@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,6 +22,17 @@ public class GlobalExceptionHandler {
                 .status(500)
                 .path(getPath(request))
                 .reason("데이터베이스에 문제가 발생했습니다.").build());
+    }
+
+    // 위 메서드와 동일 ExceptionDetails -> Map
+    //@ExceptionHandler(SQLException.class)
+    public ResponseEntity<Map<String, Object>> handleExceptionUsingMap(SQLException ex, HttpServletRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>(); // LinkedHashMap은 put한 순서를 보장한다
+        body.put("timestamp", new Date());
+        body.put("status", 500);
+        body.put("path", getPath(request));
+        body.put("reason", "데이터베이스에 문제가 발생했습니다.");
+        return ResponseEntity.status(500).body(body);
     }
 
     @ExceptionHandler(Exception.class)

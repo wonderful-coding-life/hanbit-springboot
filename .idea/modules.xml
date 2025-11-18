@@ -3,9 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/hanbit-springboot.iml" filepath="$PROJECT_DIR$/.idea/hanbit-springboot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openai-moderation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/openai-moderation.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.main.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-basic.main.iml" />
     </modules>
   </component>
 </project>
