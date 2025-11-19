@@ -34,7 +34,7 @@ public class HomeController {
     public String postMemberAdd(@Valid @ModelAttribute("memberForm") MemberForm memberForm, BindingResult bindingResult) {
         // 패스워드 확인 검증
         if (!Objects.equals(memberForm.getPassword(), memberForm.getPasswordConfirm())) {
-            bindingResult.rejectValue("passwordConfirm", "PasswordMismatch", "비밀번호가 일치하지 않습니다.");
+            bindingResult.rejectValue("passwordConfirm", "error.signup.password.mismatch", "비밀번호가 일치하지 않습니다.");
         }
 
         // 이메일 중복 검증
