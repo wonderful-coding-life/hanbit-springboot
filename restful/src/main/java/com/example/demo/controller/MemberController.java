@@ -37,12 +37,12 @@ public class MemberController {
         return memberService.findAll(name);
     }
 
-    //@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public MemberResponse get(@PathVariable("id") Long id) {
         return memberService.findById(id);
     }
 
-    @GetMapping("/{id}")
+    //@GetMapping("/{id}")
     public ResponseEntity<MemberResponse> getResponseEntity(@PathVariable Long id) {
         MemberResponse memberResponse = memberService.findById(id);
         return ResponseEntity.ok()
