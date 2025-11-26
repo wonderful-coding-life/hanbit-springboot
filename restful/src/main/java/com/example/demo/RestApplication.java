@@ -17,7 +17,8 @@ import java.util.List;
 
 // RestTemplate -> WebClient -> RestClient(blocking만 지원)로 발전
 // RestClient는 RestTemplate의 공식적인 미래, WebClient보다 가볍고 RestTemplate보다 현대적
-@Component
+// Test 수행할 때에는 실제 port로 Tomcat이 실행되는 것이 아니므로 막아 둔다.
+//@Component
 @Slf4j
 public class RestApplication implements ApplicationRunner {
     @Autowired
