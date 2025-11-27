@@ -21,14 +21,14 @@ create unique index ix_auth_username on authorities (username,authority);
 
 --full custom
 CREATE TABLE member (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
     email VARCHAR(256) NOT NULL UNIQUE,
     password VARCHAR(256)
 );
 CREATE TABLE authority (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     authority VARCHAR(256),
-    member_id INTEGER,
+    member_id BIGINT,
     FOREIGN KEY(member_id) REFERENCES member(id)
 );
