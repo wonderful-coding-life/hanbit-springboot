@@ -1,3 +1,10 @@
+# 프로젝트
+- 애플리케이션 시작시 리소스에 있는 json 파일을 몽고디비에 임포트. JSON 처리를 위해 ObjectMapper를 포함하는 방법은 다음과 같이 spring-boot-starter-json을 포함하거나 또는 web 기반 패키지를 포함.
+```build.gradle
+implementation 'org.springframework.boot:spring-boot-starter-json'
+```
+- DataInitializer에서 약국, 기사 정보를 로딩. 약국의 위치는 바로 처리가 되지 않아 DTO 객체를 만들고 toEntity로 변환
+
 # 몽고디비 준비
 어플리케이션 개발시 사용할 몽고디비를 준비하는 방법은 몽고디비에서 제공하는 클라우드 서비스를 이용하는 것과 직접 컴퓨터에 몽고디비를 설치하는 방법이 있습니다.
 몽고디비 클라우드에서는 500MB 용량의 무료 데이터베이스 공간을 제공하므로 이것을 사용할 수 있습니다.

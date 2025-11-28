@@ -61,3 +61,23 @@ http
                 .requestMatchers("/health").permitAll()
                 .anyRequest().authenticated())
 ```
+- Jackson2 --> Jackson3로 변경되어 다음과 같이 ObjectMapper, TypeReference 패키지가 바뀌었다.
+```java
+// Jackson2
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+// Jackson3
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+```
+- Jackson3에서는 ObjectMapper를 사용하여 JSON -> Java Object 만들때 반드시 기본 생성자가 있어야 한다. @NoArgsConstructor 사용.
+```java
+@Document
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Article {
+    // ...
+}
+```
