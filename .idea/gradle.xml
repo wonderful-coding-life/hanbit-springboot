@@ -94,77 +94,6 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-audio" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-audio" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-chat-model" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-chat-model" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-image" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-image" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-moderation" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-moderation" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-rag" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-rag" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-tool" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-tool" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/openai-webflux" />
-        <option name="gradleJvm" value="temurin-21" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/openai-webflux" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/props" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/props" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/querydsl" />
         <option name="gradleJvm" value="temurin-21" />
         <option name="modules">
@@ -179,6 +108,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/restful" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/scheduler" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/scheduler" />
           </set>
         </option>
       </GradleProjectSettings>

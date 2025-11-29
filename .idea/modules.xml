@@ -10,7 +10,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mongodb.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mongodb.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mvc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mvc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mybatis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mybatis.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/querydsl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/querydsl.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.main.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scheduler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/scheduler.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-basic.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" />

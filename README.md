@@ -27,7 +27,5 @@
 - [스프링 시큐리티](./security/)
 - [게시판 프로젝트](./bbs/)
 
-### Chapter 08. 스프링 부트와 챗GPT 연동하기
-- [ChatGPT - AI Model](./openai/)
-- [ChatGPT - Tool](./openai-tool)
-- [ChatGPT - Stream](./openai-webflux)
+### 기타
+- [스케쥴러](./scheduler/)
