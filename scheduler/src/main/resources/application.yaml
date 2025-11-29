@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: demo
+app:
+  scheduler:
+    order-fulfillment:
+      enabled: true
+      cron: "0 0 0,12 * * *"   # 매일 0시, 12시
+    cancel-unpaid-orders:
+      enabled: true
+      cron: "0 0 */1 * * *"    # 매시간 정각
+    request-post-purchase-review:
+      enabled: false           # 기본은 끔
+      cron: "0 0 10 * * *"     # 매일 오전 10시
