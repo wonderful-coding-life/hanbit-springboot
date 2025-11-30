@@ -5,6 +5,29 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 
+/*
+    Class.forName("com.mysql.cj.jdbc.Driver"); java 8, jdbc 4 이후에는 필요 없음
+    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "myuser", "mypass");
+    connection.setAutoCommit(false)
+    do something
+    connection.commit()
+    connection.rollback()
+    connection.close()
+
+    Statement statement = connection.createStatement();
+    statement.executeQuery(SQL 문) for SELECT
+    statement.executeUpdate(SQL 문) for INSERT, UPDATE, DELETE
+    statement.execute(SQL 문) for others
+
+    prepareStatement()에서 SQL문이 고정
+    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO member(name, email, age) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+    preparedStatement.setString(index, param); 1부터 시작하는 파라미터 인덱스, 파라미터 값
+    preparedStatement.setInt(...);
+    preparedStatement.setLong(...);
+    preparedStatement.executeQuery(); for SELECT
+    preparedStatement.executeUpdate(); for INSERT, UPDATE, DELETE
+ */
+
 @Slf4j
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -43,11 +66,12 @@ public class Main {
 
         //selectMember(connection);
         selectAll(connection);
+
+        connection.close();
     }
 
     private void dropTable(Connection connection) throws SQLException {
         String dropTable = "DROP TABLE IF EXISTS member;";
-
         Statement statement = connection.createStatement();
         statement.execute(dropTable);
     }
