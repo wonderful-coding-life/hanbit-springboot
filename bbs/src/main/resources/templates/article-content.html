@@ -26,11 +26,11 @@
             </tr>
             <tr>
                 <td>글쓴일</td>
-                <td th:text="${#calendars.format(article.created,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:18</td>
+                <td th:text="${#temporals.format(article.created,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:18</td>
             </tr>
             <tr>
                 <td>수정일</td>
-                <td th:text="${#calendars.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 10:10:25</td>
+                <td th:text="${#temporals.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 10:10:25</td>
             </tr>
         </tbody>
     </table>
