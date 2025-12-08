@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "article")
@@ -29,10 +29,10 @@ public class Article {
     private String description;
     @CreatedDate
     @Column(name="created")
-    private Date created;
+    private LocalDateTime created;
     @LastModifiedDate
     @Column(name="updated")
-    private Date updated;
+    private LocalDateTime updated;
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
