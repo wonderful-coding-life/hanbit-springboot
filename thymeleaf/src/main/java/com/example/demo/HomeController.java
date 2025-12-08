@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,8 +59,8 @@ public class HomeController {
 
     @GetMapping("/utility")
     public String getUtility(Model model) {
-        Date date = Calendar.getInstance().getTime();
-        model.addAttribute("date", date);
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("now", now);
 
         model.addAttribute("productPrice", 345620.5226);
         model.addAttribute("productCount", 3502340);
