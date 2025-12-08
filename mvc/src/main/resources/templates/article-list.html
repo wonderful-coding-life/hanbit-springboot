@@ -22,7 +22,7 @@
             <td th:text="${article.id}">id</td>
             <td th:text="${article.title}">title</td>
             <td th:text="${article.name}">author</td>
-            <td th:text="${#calendars.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:19</td>
+            <td th:text="${#temporals.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:19</td>
         </tr>
         </tbody>
     </table>
