@@ -1,10 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "member", indexes = {
@@ -28,4 +27,8 @@ public class Member {
     private Integer age;
     @Transient
     private String address;
+//    @JsonIgnore 나중에 웹에서 가능
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "member")
+//    private List<Article> articles;
 }
