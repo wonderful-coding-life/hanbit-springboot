@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/aop" />
+    <file type="web" url="file://$PROJECT_DIR$/bbs" />
+    <file type="web" url="file://$PROJECT_DIR$/di" />
+    <file type="web" url="file://$PROJECT_DIR$/ioc" />
+    <file type="web" url="file://$PROJECT_DIR$/jdbc" />
+    <file type="web" url="file://$PROJECT_DIR$/jpa" />
+    <file type="web" url="file://$PROJECT_DIR$/lombok" />
+    <file type="web" url="file://$PROJECT_DIR$/mongodb" />
+    <file type="web" url="file://$PROJECT_DIR$/mvc" />
+    <file type="web" url="file://$PROJECT_DIR$/mybatis" />
+    <file type="web" url="file://$PROJECT_DIR$/querydsl" />
+    <file type="web" url="file://$PROJECT_DIR$/restful" />
+    <file type="web" url="file://$PROJECT_DIR$/scheduler" />
+    <file type="web" url="file://$PROJECT_DIR$/security" />
+    <file type="web" url="file://$PROJECT_DIR$/security-basic" />
+    <file type="web" url="file://$PROJECT_DIR$/spring-jdbc" />
+    <file type="web" url="file://$PROJECT_DIR$/thymeleaf" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="temurin-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

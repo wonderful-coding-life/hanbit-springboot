@@ -6,9 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.session.HttpSessionCreatedEvent;
 import org.springframework.security.web.session.HttpSessionDestroyedEvent;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -97,6 +103,28 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(withDefaults())  // formLogin is NOT enabled by default when you define SecurityFilterChain manually
                 .logout(withDefaults()); // logout IS enabled by default, even if you don't configure it
+        return http.build();
+    }
+
+    // 여러개의 시큐리티 필터 체인을 등록할 수 있으며, @Order 애노테이션을 사용하여 필터 체인의 우선순위를 지정할 수 있다.
+    // 각 필터 체인에는 securityMatcher() 메서드를 사용하여 특정 URL 패턴에만 적용되도록 설정할 수 있다.
+    // 웹 체인과 API 체인이 동시에 존재하는 경우 서로 다른 보안 요구사항을 가질 수 있기 때문에 이러한 구성이 유용하다.
+    // 특히 API 체인은 상태 비저장(stateless) 특성을 가지므로 세션 관리를 비활성화하고, 세션이 없으므로 CSRF 보호도 비활성화하는 것이 일반적이다.
+    // 또한 웹 체인이 함께 있고 여기에 .formLogin으로 AuthenticationEntryPoint가 설정되어 있으면 인증되지 않은 요청에 대해 401 Unauthorized 응답을 반환하도록 설정이 필요하다.
+    @Bean
+    @Order(1)
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/api/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/members/**").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().permitAll())
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
