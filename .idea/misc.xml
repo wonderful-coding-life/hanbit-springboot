@@ -20,6 +20,13 @@
     <file type="web" url="file://$PROJECT_DIR$/spring-jdbc" />
     <file type="web" url="file://$PROJECT_DIR$/thymeleaf" />
   </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/bbs-maven/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="temurin-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

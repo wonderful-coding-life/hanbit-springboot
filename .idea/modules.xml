@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bbs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bbs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hanbit-springboot.iml" filepath="$PROJECT_DIR$/.idea/hanbit-springboot.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jdbc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jpa.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jpa.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lombok.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lombok.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mongodb.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mongodb.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mvc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mvc.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mybatis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mybatis.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/querydsl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/querydsl.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.main.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scheduler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/scheduler.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-basic.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-jdbc.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" filepath="$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" />
     </modules>
   </component>
 </project>
