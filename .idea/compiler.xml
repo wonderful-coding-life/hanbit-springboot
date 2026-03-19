@@ -18,10 +18,10 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
         </processorPath>
-        <module name="demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="demo" target="21" />
       <module name="demo.main" target="21" />
       <module name="demo.test" target="21" />
       <module name="openai-audio" target="21" />
