@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
-@StartupTask
+@Component
 @ConditionalOnProperty(name="app.pi.enabled", havingValue = "true")
 public class PiAsyncApplication implements ApplicationRunner {
     @Autowired
