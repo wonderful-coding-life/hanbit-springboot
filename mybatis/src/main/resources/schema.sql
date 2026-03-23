@@ -14,3 +14,5 @@ CREATE TABLE article (
    member_id BIGINT,
    FOREIGN KEY(member_id) REFERENCES member(id) ON DELETE CASCADE
 );
+
+
