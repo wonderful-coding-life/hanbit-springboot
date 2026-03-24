@@ -19,7 +19,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Article {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
