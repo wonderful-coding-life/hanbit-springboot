@@ -9,6 +9,12 @@
 <p th:text="${#temporals.format(now,'yyyy-MM-dd HH:mm:ss')}">
     2022년 12월 25일
 </p>
+<p th:text="${#temporals.format(seoul,'yyyy-MM-dd HH:mm:ss')}">
+    2022년 12월 25일
+</p>
+<p th:text="${#temporals.format(paris,'yyyy-MM-dd HH:mm:ss')}">
+    2022년 12월 25일
+</p>
 
 <!-- formatDecimal(숫자, 최소 표시 자리 수, 소수점 이하 자리 수, 세자리마다 콤마 여부 'COMMA') -->
 <p th:text="${#numbers.formatDecimal(productPrice, 1, 2)}">

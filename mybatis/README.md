@@ -14,6 +14,7 @@
 - 글로벌 서비스를 만들 때에는 절대 시점을 Instant로 UTC 기준 저장하고,
   각 앱에서는 사용자/국가의 시간대에 맞게 ZonedDateTime 등으로 변환해서 보여주는 것이 정석이다.
 ```java
+Instant instant = Instant.now();
 ZonedDateTime zdt = instant.atZone(ZoneId.of("Asia/Seoul"));
 ```
 ```html

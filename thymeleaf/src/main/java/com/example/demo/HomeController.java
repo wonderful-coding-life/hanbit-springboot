@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +64,12 @@ public class HomeController {
     public String getUtility(Model model) {
         LocalDateTime now = LocalDateTime.now();
         model.addAttribute("now", now);
+
+        Instant instant = Instant.now();
+        ZonedDateTime seoul = instant.atZone(ZoneId.of("Asia/Seoul"));
+        model.addAttribute("seoul", seoul);
+        ZonedDateTime paris = instant.atZone(ZoneId.of("Europe/Paris"));
+        model.addAttribute("paris", paris);
 
         model.addAttribute("productPrice", 345620.5226);
         model.addAttribute("productCount", 3502340);
