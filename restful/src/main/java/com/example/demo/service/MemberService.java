@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +36,20 @@ public class MemberService {
     public MemberResponse findById(Long id) {
         Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
         return mapToMemberResponse(member);
+    }
+
+    public List<MemberResponse> findAll_() {
+        List<Member> members = memberRepository.findAll();
+        List<MemberResponse> result = new ArrayList<>();
+        for (Member member: members) {
+            MemberResponse response = mapToMemberResponse(member);
+            result.add(response);
+        }
+        return result;
+    }
+
+    public List<MemberResponse> findAll() {
+        return memberRepository.findAll().stream().map(this::mapToMemberResponse).toList();
     }
 
     public List<MemberResponse> findAll(String name) {
