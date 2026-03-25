@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +36,30 @@ public class ArticleService {
                 .stream()
                 .map(this::mapToArticleResponse)
                 .toList();
+    }
+
+    public List<ArticleResponse> findByMemberId_(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+
+        List<Article> articles = articleRepository.findAllByMember(member);
+        List<ArticleResponse> result = new ArrayList<>();
+
+        for (Article article : articles) {
+            ArticleResponse response = ArticleResponse.builder()
+                    .id(article.getId())
+                    .title(article.getTitle())
+                    .description(article.getDescription())
+                    .created(article.getCreated())
+                    .updated(article.getUpdated())
+                    .memberId(article.getMember().getId())
+                    .name(article.getMember().getName())
+                    .email(article.getMember().getEmail())
+                    .build();
+
+            result.add(response);
+        }
+
+        return result;
     }
 
     public List<ArticleResponse> findByMemberId(Long memberId) {
