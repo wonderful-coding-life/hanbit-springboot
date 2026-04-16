@@ -1,0 +1,35 @@
+//@host = http://localhost:8080
+
+### Get all members
+GET {{host}}/api/members
+
+### Create a new member
+POST {{host}}/api/members
+Content-Type: application/json
+
+{
+  "name": "윤서준",
+  "email": "SeojunYoon@hanbit.co.kr",
+  "age": 10
+}
+
+### Get all articles
+GET {{host}}/api/articles
+
+### Get an article by id
+GET {{host}}/api/articles/1
+
+### Get an article by page, size, and sort
+GET {{host}}/api/articles?page=1&size=3&sort=title,asc&sort=description,desc
+
+### Put an article by id
+PUT {{host}}/api/articles/1
+Content-Type: application/json
+
+{
+  "title": "Updated Article Title",
+  "description": "Updated Article Description"
+}
+
+### Delete an article by id
+DELETE {{host}}/api/articles/1
