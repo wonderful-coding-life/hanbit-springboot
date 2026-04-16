@@ -6,6 +6,7 @@ GET {{host}}/api/members
 ### Create a new member
 POST {{host}}/api/members
 Content-Type: application/json
+Accept: application/json
 
 {
   "name": "윤서준",
