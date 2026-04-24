@@ -12,3 +12,7 @@
 | Docker 이미지 생성 | `.\mvnw spring-boot:build-image` | `./gradlew bootBuildImage` | Buildpack 기반 컨테이너 이미지 생성 |
 | 애플리케이션 실행 (profile 지정) | `.\mvnw spring-boot:run -Dspring-boot.run.profiles=dev` | `./gradlew bootRun --args='--spring.profiles.active=dev'` | 특정 profile로 실행 |
 
+# 그래들 버전 업데이트
+```shell
+gradlew wrapper --gradle-version 9.4.1
+```
