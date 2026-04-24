@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/hanbit-springboot.iml" filepath="$PROJECT_DIR$/.idea/hanbit-springboot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" filepath="$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jdbc.main.iml" />
     </modules>
   </component>
 </project>
