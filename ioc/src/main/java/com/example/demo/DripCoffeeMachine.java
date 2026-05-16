@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class DripCoffeeMachine implements CoffeeMachine {
     @Override
     public String brew() {
-        return "Brewing coffee with Drop Coffee Machine";
+        return "Brewing coffee with Drip Coffee Machine";
     }
 }

@@ -19,7 +19,7 @@ public class Barista {
     }
 }
 
-public class Main {
+public class SpringCafe {
     public static void main(String[] args) {
         LegacyBarista barista = new LegacyBarista();
         barista.makeCoffee();
@@ -57,7 +57,7 @@ public class Barista {
 ```
 - Main에서 필요한 의존성을 주입하고 실행
 ```java
-public class Main {
+public class SpringCafe {
     public static void main(String[] args) {
         Barista barista = new Barista();
         barista.setCoffeeMachine(new DripCoffeeMachine());
@@ -74,7 +74,7 @@ public class EspressoMachine implements CoffeeMachine {
     }
 }
 
-public class Main {
+public class SpringCafe {
     public static void main(String[] args) {
         Barista barista = new Barista();
         barista.setCoffeeMachine(new EspressoMachine());

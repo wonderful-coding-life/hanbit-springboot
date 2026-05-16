@@ -17,13 +17,6 @@ public class SpringCafe implements ApplicationRunner {
 
         barista.makeCoffees();
 
-        // 일반형 인자 file1.txt file2.txt
-        // java -jar app.jar --name=hong --age=20 file1.txt file2.txt
-        List<String> nonOptionArgs = args.getNonOptionArgs();
-        for (String nonOptionArg : nonOptionArgs) {
-            System.out.println("non option arg = " + nonOptionArg);
-        }
-
         // 옵션형 인자 --name, --age
         // java -jar app.jar --name=hong --age=20 file1.txt file2.txt
         List<String> optionValues = args.getOptionValues("name");
@@ -31,6 +24,13 @@ public class SpringCafe implements ApplicationRunner {
             for (String optionValue : optionValues) {
                 System.out.println("option arg(name) = " + optionValue);
             }
+        }
+
+        // 일반형 인자 file1.txt file2.txt
+        // java -jar app.jar --name=hong --age=20 file1.txt file2.txt
+        List<String> nonOptionArgs = args.getNonOptionArgs();
+        for (String nonOptionArg : nonOptionArgs) {
+            System.out.println("non option arg = " + nonOptionArg);
         }
     }
 }
