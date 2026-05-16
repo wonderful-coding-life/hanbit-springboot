@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
+import com.example.demo.repository.MemberRepository;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class MemberControllerTests {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @AfterEach
+    void doAfterEach() {
+        memberRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("사용자 생성 테스트")

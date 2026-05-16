@@ -15,6 +15,7 @@ public class MemberRepositoryTests {
 
     @BeforeEach
     public void doBeforeEach() {
+        memberRepository.deleteAll();
         memberRepository.save(Member.builder().name("윤서준").email("SeojunYoon@hanbit.co.kr").age(10).enabled(true).build());
         memberRepository.save(Member.builder().name("윤광철").email("KwangcheolYoon@hanbit.co.kr").age(43).enabled(true).build());
         memberRepository.save(Member.builder().name("공미영").email("MiyeongKong@hanbit.co.kr").age(26).enabled(false).build());

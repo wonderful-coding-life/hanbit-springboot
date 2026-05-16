@@ -4,6 +4,7 @@ import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class MemberServiceUnitSpyTests {
 
     @Autowired
     private MemberService memberService;
+
+    @AfterEach
+    void doAfterEach() {
+        memberRepository.deleteAll();
+    }
 
     @Test
     public void findById() {
