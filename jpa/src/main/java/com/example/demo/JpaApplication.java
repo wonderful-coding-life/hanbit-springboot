@@ -60,9 +60,31 @@ public class JpaApplication implements ApplicationRunner {
         var members = memberRepository.findAll(probe);
         log.info("{}", members);
 
-        // 영속성 컨텍스트 테스트
-        // ApplicationRunner에는 영속성 컨텍스트가 없기 때문에 그냥 실행하면 다른 객체
-        // 하지만 @Transactional을 클래스 또는 run 메서드에 추가하여 강제로 영속성 컨텍스트를 생성하면 동일 객체
+        // 영속성 컨텍스트(Persistence Context)
+        // - 엔티티를 관리하는 JPA의 메모리 공간
+        // - 1차 캐시 - 같은 PK의 엔티티 조회 시 DB를 다시 조회하지 않고 캐시된 객체 반환
+        // - 동일성 보장 - 같은 영속성 컨텍스트 안에서는 같은 PK의 엔티티에 대해 항상 동일 객체 반환
+
+        // 트랜잭션(@Transactional)
+        // - 트랜잭션 시작 시 영속성 컨텍스트 생성
+        // - 영속 상태(managed) 엔티티의 변경 사항을 Dirty Checking으로 추적
+        // - setEmail() 등으로 엔티티 값을 변경하면
+        //   트랜잭션 commit 시 flush 되면서 UPDATE SQL 실행
+
+        // OSIV(Open Session In View)
+        // - Spring Boot에서 Spring Web + JPA를 사용하면 기본적으로 활성화
+        // - HTTP 요청(Request) 시작 시 영속성 컨텍스트(EntityManager) 생성
+        // - View/JSON 응답 생성 시점까지 영속성 컨텍스트 유지
+        // - Lazy Loading 가능
+        // - 단, 트랜잭션을 자동 생성하지는 않음
+        // - 따라서 Dirty Checking만으로 자동 UPDATE 되지는 않음
+        // - OSIV는 영속성 컨텍스트는 유지하지만 트랜잭션은 자동 생성하지 않음
+
+        // ApplicationRunner
+        // - 웹 요청 기반이 아니므로 OSIV가 적용되지 않음
+        // - 필요하다면 @Transactional을 사용하여
+        //   트랜잭션과 영속성 컨텍스트를 함께 생성하여 사용
+
         var m1 = memberRepository.findMember("윤서준").getFirst();
         var m2 = memberRepository.findById(1L).get();
         if (m1 == m2) {
@@ -70,5 +92,9 @@ public class JpaApplication implements ApplicationRunner {
         } else {
             log.info(">>> 다른 객체 : {} {}", m1, m2);
         }
+
+        // 트랜잭션 안에서는 save() 없이 엔티티 값만 변경해도
+        // commit 시 Dirty Checking으로 UPDATE SQL 실행
+        m1.setAge(99);
     }
 }
