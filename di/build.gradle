@@ -18,3 +18,16 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register("sample") {
+    group = "custom"
+    description = "사용자 정의 Hello Task"
+
+    doFirst {
+        println("START")
+    }
+
+    doLast {
+        println("END")
+    }
+}

@@ -6,6 +6,9 @@ import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Tag(name = "회원 API", description = "회원 조회, 등록, 수정 API")
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
@@ -37,8 +41,9 @@ public class MemberController {
         return memberService.findAll(name);
     }
 
+    @Operation(summary = "회원 단건 조회", description = "회원 ID로 회원 정보를 조회합니다.")
     @GetMapping("/{id}")
-    public MemberResponse get(@PathVariable("id") Long id) {
+    public MemberResponse get(@Parameter(description = "회원 ID", example = "1") @PathVariable("id") Long id) {
         return memberService.findById(id);
     }
 
