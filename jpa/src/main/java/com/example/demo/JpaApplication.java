@@ -4,6 +4,7 @@ import com.example.demo.model.Article;
 import com.example.demo.model.Member;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -58,5 +59,16 @@ public class JpaApplication implements ApplicationRunner {
         );
         var members = memberRepository.findAll(probe);
         log.info("{}", members);
+
+        // 영속성 컨텍스트 테스트
+        // ApplicationRunner에는 영속성 컨텍스트가 없기 때문에 그냥 실행하면 다른 객체
+        // 하지만 @Transactional을 클래스 또는 run 메서드에 추가하여 강제로 영속성 컨텍스트를 생성하면 동일 객체
+        var m1 = memberRepository.findMember("윤서준").getFirst();
+        var m2 = memberRepository.findById(1L).get();
+        if (m1 == m2) {
+            log.info(">>> 동일 객체 : {} {}", m1, m2);
+        } else {
+            log.info(">>> 다른 객체 : {} {}", m1, m2);
+        }
     }
 }
