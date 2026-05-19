@@ -27,12 +27,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> readByName(String name);
     List<Member> searchByName(String name);
 
-    // Generic sample
-    // SELECT * FROM MEMBER WHERE name = '...' AND email = '...' OR age > ...
-    List<Member> findByNameIsAndEmailIsOrAgeIsGreaterThan(String name, String email, Integer age);
-    List<Member> queryByNameEqualsAndEmailIsOrAgeGreaterThan(String name, String email, Integer age);
-    List<Member> searchByNameAndEmailOrAgeGreaterThan(String name, String email, Integer age);
-
     // 이름과 이메일을 AND 조건으로 사용자 조회
     List<Member> findByNameAndEmail(String name, String email);
 
@@ -77,6 +71,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 매개변수로 전달된 나이를 포함하여 그 사이 나이의 사용자 조회
     List<Member> findByAgeBetween(Integer min, Integer max);
+
+    // Generic sample
+    // SELECT * FROM MEMBER WHERE name = '...' AND email = '...' OR age > ...
+    List<Member> findByNameIsAndEmailIsOrAgeIsGreaterThan(String name, String email, Integer age);
+    List<Member> queryByNameEqualsAndEmailIsOrAgeGreaterThan(String name, String email, Integer age);
+    List<Member> searchByNameAndEmailOrAgeGreaterThan(String name, String email, Integer age);
 
     // 이름 순으로 조회
     List<Member> findByOrderByNameAsc();
