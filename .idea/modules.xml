@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jdbc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jdbc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.main.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/restful.test.iml" filepath="$PROJECT_DIR$/.idea/modules/restful.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" filepath="$PROJECT_DIR$/.idea/modules/thymeleaf.main.iml" />
     </modules>
   </component>
 </project>

@@ -31,7 +31,7 @@ public class MemberServiceUnitSpyTests {
 
     @Test
     public void findById() {
-        doReturn(Optional.ofNullable(Member.builder()
+        doReturn(Optional.of(Member.builder()
                 .id(1L)
                 .name("윤서준")
                 .email("SeojunYoon@hanbit.co.kr")

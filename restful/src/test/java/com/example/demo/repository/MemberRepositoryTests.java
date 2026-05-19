@@ -28,6 +28,23 @@ public class MemberRepositoryTests {
     }
 
     @Test
+    @DisplayName("회원을_생성하면_아이디가_부여된다")
+    public void shouldGenerateIdWhenSavingMember() {
+    }
+
+    @Test
+    public void 회원을_생성하면_아이디가_부여된다() {
+        // given
+        var member = Member.builder().name("윤지웅").email("JiwoonYun@hanbit.co.kr").age(10).build();
+
+        // when
+        var saved = memberRepository.save(member);
+
+        // then
+        assertThat(saved.getId()).isNotNull();
+    }
+
+    @Test
     @DisplayName("조검 검색 테스트")
     public void testMemberCase1() {
         // 사용자 리파지토리에 저장된 개수가 4인지 검증
