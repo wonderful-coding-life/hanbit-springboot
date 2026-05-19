@@ -218,3 +218,33 @@ public MemberResponse get(@PathVariable("id") Long id) {
 ```
 
 경로의 `{id}`와 `@PathVariable("id")` 이름이 일치해야 합니다.
+
+## 12. 클라이언트 생성
+
+메이븐 저장소에서 openapi-generator-cli.jar를 다운로드하면,
+OpenAPI 문서를 기반으로 다양한 기술 스택의 클라이언트 코드를 자동 생성할 수 있다.
+
+특히 React + TypeScript 환경에서는 API 호출 코드와 타입 정의를 자동으로 생성할 수 있어 실무에서도 많이 활용된다.
+
+```shell
+# Java WebClient 기반 클라이언트 생성
+java -jar openapi-generator-cli-7.22.0.jar generate \
+  -i http://localhost:8080/v3/api-docs \
+  -g java \
+  --library webclient \
+  -o ./generated-client
+
+# TypeScript Fetch 기반 클라이언트 생성
+java -jar openapi-generator-cli-7.22.0.jar generate \
+  -i http://localhost:8080/v3/api-docs \
+  -g typescript-fetch \
+  -o ./ts-client
+```
+생성된 프로젝트에는 다음과 같은 코드들이 포함된다.
+
+- API 호출 함수
+- Request/Response DTO 타입
+- HTTP Client 설정 코드
+- 직렬화/역직렬화 코드
+
+이를 통해 프론트엔드와 백엔드 간의 타입 불일치를 줄이고, API 변경 사항을 보다 안정적으로 반영할 수 있다.
