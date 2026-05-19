@@ -2,8 +2,12 @@ package com.example.demo.config;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.Member;
+import com.example.demo.model.Product;
+import com.example.demo.model.ProductOrder;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.ProductOrderRepository;
+import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -18,6 +22,8 @@ import java.util.List;
 public class DataInitializer implements ApplicationRunner {
     private final MemberRepository memberRepository;
     private final ArticleRepository articleRepository;
+    private final ProductRepository productRepository;
+    private final ProductOrderRepository productOrderRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -40,6 +46,14 @@ public class DataInitializer implements ApplicationRunner {
                         .member(member).build();
                 articleRepository.save(article);
             }
+        }
+
+        if (productRepository.count() == 0) {
+            var products = List.of(
+                    Product.builder().name("맥북").price(1200000).build(),
+                    Product.builder().name("아이폰").price(1500000).build()
+            );
+            productRepository.saveAll(products);
         }
     }
 }

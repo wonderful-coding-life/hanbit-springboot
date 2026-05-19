@@ -25,6 +25,7 @@ public class JpaApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        var test = memberRepository.findById(1L);
         var member = memberRepository.findMember("윤서준").getFirst();
 
         var article = Article.builder()
