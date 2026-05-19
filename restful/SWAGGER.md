@@ -141,6 +141,69 @@ public List<MemberResponse> search(
 }
 ```
 
+복합 객체 형태의 요청 파라미터를 사용하는 경우에는 `@ParameterObject`를 사용할 수 있습니다.
+
+예를 들어 Spring Data의 `Pageable` 객체를 사용하는 경우 Swagger UI에서 `page`, `size`, `sort` 파라미터를 개별적으로 표시할 수 있습니다.
+
+```java
+@Operation(summary = "게시글 페이지 조회")
+@GetMapping
+public Page<ArticleResponse> getAll(
+        @ParameterObject
+        @PageableDefault(
+                page = 0,
+                size = 10,
+                sort = "id",
+                direction = Sort.Direction.DESC
+        )
+        Pageable pageable
+) {
+    return articleService.findAll(pageable);
+}
+```
+
+위와 같이 설정하면 Swagger UI에서 다음과 같은 요청 파라미터 입력 항목이 자동으로 생성됩니다.
+
+- `page`
+- `size`
+- `sort`
+
+예시 요청:
+
+```http
+GET /articles?page=0&size=10&sort=id,desc
+```
+
+`@ParameterObject`는 `Pageable` 뿐만 아니라 일반 DTO 객체에도 사용할 수 있습니다.
+
+```java
+public class MemberSearchCondition {
+
+    private String name;
+    private Integer age;
+
+    // getter/setter
+}
+```
+
+```java
+@Operation(summary = "회원 조건 검색")
+@GetMapping("/search")
+public List<MemberResponse> search(
+        @ParameterObject MemberSearchCondition condition
+) {
+    return memberService.search(condition);
+}
+```
+
+요청 예시:
+
+```http
+GET /members/search?name=kim&age=20
+```
+
+이 경우 Swagger UI에서 `name`, `age` 입력 필드가 자동으로 생성됩니다.
+
 ## 8. RequestBody 설명 붙이기
 
 Request DTO에는 `@Schema`를 사용합니다.
@@ -179,32 +242,33 @@ public MemberResponse create(
 ## 9. Response DTO 설명 붙이기
 
 ```java
-@Schema(description = "회원 응답")
-public record MemberResponse(
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Schema(description = "회원 생성 요청 DTO")
+public class MemberRequest {
 
-        @Schema(description = "회원 ID", example = "1")
-        Long id,
+    @Schema(description = "회원 이름", example = "김철수")
+    private String name;
 
-        @Schema(description = "회원 이름", example = "김철수")
-        String name,
+    @Schema(description = "회원 이메일", example = "kim@example.com")
+    private String email;
 
-        @Schema(description = "이메일", example = "kim@example.com")
-        String email,
-
-        @Schema(description = "나이", example = "20")
-        Integer age
-) {
+    @Schema(description = "회원 나이", example = "20")
+    private Integer age;
 }
 ```
 
 ## 10. 자주 사용하는 애노테이션
 
-| 애노테이션 | 사용 위치 | 설명 |
-|---|---|---|
-| `@Tag` | Controller 클래스 | API 그룹 설명 |
-| `@Operation` | Controller 메서드 | API 기능 설명 |
-| `@Parameter` | 메서드 파라미터 | PathVariable, RequestParam 설명 |
-| `@Schema` | DTO 클래스/필드 | 요청/응답 모델 설명 |
+| 애노테이션              | 사용 위치          | 설명                                   |
+| ------------------ | -------------- | ------------------------------------ |
+| `@Tag`             | Controller 클래스 | API 그룹 설명                            |
+| `@Operation`       | Controller 메서드 | API 기능 설명                            |
+| `@Parameter`       | 메서드 파라미터       | PathVariable, RequestParam 설명        |
+| `@ParameterObject` | 객체 파라미터        | Pageable, 검색 조건 DTO 등의 요청 파라미터 객체 설명 |
+| `@Schema`          | DTO 클래스/필드     | 요청/응답 모델 설명                          |
 
 ## 11. 주의사항
 
