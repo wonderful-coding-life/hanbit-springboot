@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Member;
+import com.example.demo.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 // 응답 본문을 EUC-KR로 반환하는 경우 주의사항
@@ -45,39 +49,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    private final Member member = Member.builder().id(1L).name("윤서준").email("SeojunYoon@hanbit.co.kr").age(10).build();
+    @Autowired
+    private MemberRepository memberRepository;
 
-    @GetMapping(value = "/test/plain/euc-kr", produces = "text/plain;charset=euc-kr")
-    public String testPlainEucKr() {
-        return member.toString();
-    }
-
-    @GetMapping(value = "/test/plain/utf-8", produces = "text/plain;charset=utf-8")
-    public String testPlainUtf8() {
-        return member.toString();
-    }
-
-    @GetMapping(value="/test/json-euc-kr", produces = "text/plain;charset=euc-kr")
-    public String testJsonEucKr() throws JsonProcessingException {
-        var mapper = new ObjectMapper();
-        return mapper.writeValueAsString(member);
-    }
-
-    @GetMapping(value="/test/json-utf-8", produces = "text/plain;charset=utf-8")
-    public String testJsonUtf8() throws JsonProcessingException {
-        var mapper = new ObjectMapper();
-        return mapper.writeValueAsString(member);
-    }
-
-    @GetMapping(value="/test/xml-euc-kr", produces = "text/plain;charset=euc-kr")
-    public String testXmlEucKr() throws JsonProcessingException {
-        var mapper = new XmlMapper();
-        return mapper.writeValueAsString(member);
-    }
-
-    @GetMapping(value="/test/xml-utf-8", produces = "text/plain;charset=utf-8")
-    public String testXmlUtf8() throws JsonProcessingException {
-        var mapper = new XmlMapper();
-        return mapper.writeValueAsString(member);
+    @GetMapping("/api/v3/members/{id}")
+    public String getMember(@PathVariable("id") Long id, @RequestParam(value = "type", required = false) String type) throws JsonProcessingException {
+        var member = memberRepository.findById(id).orElseThrow();
+        if ("xml".equalsIgnoreCase(type)) {
+            var mapper = new XmlMapper();
+            return mapper.writeValueAsString(member);
+        } else {
+            var mapper = new ObjectMapper();
+            return mapper.writeValueAsString(member);
+        }
     }
 }
