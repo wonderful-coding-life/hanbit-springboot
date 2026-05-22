@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.NoSuchElementException;
 
 @Controller
 public class MemberController {
@@ -35,7 +36,7 @@ public class MemberController {
 
     @GetMapping("/member/edit")
     public String getMemberEdit(@RequestParam("id") Long id, Model model) {
-        var member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
+        var member = memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("없는 회원 아이디입니다."));
         model.addAttribute("member", member);
         return "member-edit";
     }
@@ -48,7 +49,8 @@ public class MemberController {
 
     @GetMapping("/member/delete")
     public String getMemberEdit(@RequestParam("id") Long id) {
-        memberRepository.deleteById(id);
+        var member = memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("없는 회원 아이디입니다."));
+        memberRepository.delete(member);
         return "redirect:/member/list";
     }
 }
