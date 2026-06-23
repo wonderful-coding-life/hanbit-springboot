@@ -6,36 +6,16 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.42/8365263844ebb62398e0dc33057ba10ba472d3b8/lombok-1.18.42.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.46/a5cfe99fdf320e84955ef653f2ce1bf789d11385/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="bbs.main" />
+        <module name="security-basic.test" />
+        <module name="security-basic.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="21" />
       <module name="demo.main" target="21" />
       <module name="demo.test" target="21" />
-      <module name="openai-audio" target="21" />
-      <module name="openai-audio.main" target="21" />
-      <module name="openai-audio.test" target="21" />
-      <module name="openai-chat-model" target="21" />
-      <module name="openai-chat-model.main" target="21" />
-      <module name="openai-chat-model.test" target="21" />
-      <module name="openai-image" target="21" />
-      <module name="openai-image.main" target="21" />
-      <module name="openai-image.test" target="21" />
-      <module name="openai-moderation" target="21" />
-      <module name="openai-moderation.main" target="21" />
-      <module name="openai-moderation.test" target="21" />
-      <module name="openai-rag" target="21" />
-      <module name="openai-rag.main" target="21" />
-      <module name="openai-rag.test" target="21" />
-      <module name="openai-tool" target="21" />
-      <module name="openai-tool.main" target="21" />
-      <module name="openai-tool.test" target="21" />
-      <module name="openai-webflux" target="21" />
-      <module name="openai-webflux.main" target="21" />
-      <module name="openai-webflux.test" target="21" />
       <module name="props" target="21" />
       <module name="props-scheduler" target="21" />
       <module name="props-scheduler.main" target="21" />
