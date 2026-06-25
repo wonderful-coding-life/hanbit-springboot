@@ -72,8 +72,9 @@ public class Main {
 
     private void dropTable(Connection connection) throws SQLException {
         String dropTable = "DROP TABLE IF EXISTS member;";
-        Statement statement = connection.createStatement();
-        statement.execute(dropTable);
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(dropTable);
+        }
     }
 
     private void createTable(Connection connection) throws SQLException {
@@ -86,8 +87,9 @@ public class Main {
                 );
                 """;
 
-        Statement statement = connection.createStatement();
-        statement.execute(createTable);
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(createTable);
+            }
     }
 
     private void createTablePostgres(Connection connection) throws SQLException {
@@ -100,79 +102,85 @@ public class Main {
                 );
                 """;
 
-        Statement statement = connection.createStatement();
-        statement.execute(createTable);
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(createTable);
+        }
     }
 
     private int insertMember(Connection connection, String name, String email, Integer age) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO member(name, email, age) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, name);
-        preparedStatement.setString(2, email);
-        preparedStatement.setInt(3, age);
-
-        return preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO member(name, email, age) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setInt(3, age);
+            return preparedStatement.executeUpdate();
+        }
     }
 
     private Long insertMemberReturningGeneratedKey(Connection connection, String name, String email, Integer age) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO member(name, email, age) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, name);
-        preparedStatement.setString(2, email);
-        preparedStatement.setInt(3, age);
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO member(name, email, age) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setInt(3, age);
 
-        int rowsInserted = preparedStatement.executeUpdate();
-        if (rowsInserted > 0) {
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getLong(1);
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                ResultSet rs = preparedStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getLong(1);
+                } else {
+                    throw new SQLException("생성된 키가 없습니다");
+                }
             } else {
-                throw new SQLException("생성된 키가 없습니다");
+                throw new SQLException("생성할 수 없습니다");
             }
-        } else {
-            throw new SQLException("생성할 수 없습니다");
         }
     }
 
     private int updateMember(Connection connection, Member member) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE member SET name = ?, email = ?, age = ? WHERE id = ?");
-        preparedStatement.setString(1, member.getName());
-        preparedStatement.setString(2, member.getEmail());
-        preparedStatement.setInt(3, member.getAge());
-        preparedStatement.setLong(4, member.getId());
-
-        return preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE member SET name = ?, email = ?, age = ? WHERE id = ?")) {
+            preparedStatement.setString(1, member.getName());
+            preparedStatement.setString(2, member.getEmail());
+            preparedStatement.setInt(3, member.getAge());
+            preparedStatement.setLong(4, member.getId());
+            return preparedStatement.executeUpdate();
+        }
     }
 
     private int deleteMember(Connection connection, Long id) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM member WHERE id = ?");
-        preparedStatement.setLong(1, id);
-        return preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM member WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            return preparedStatement.executeUpdate();
+        }
     }
 
     private void selectAll(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM member");
-        while (resultSet.next()) {
-            var member = new Member(
-                    resultSet.getLong("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("email"),
-                    resultSet.getInt("age"));
-            log.info("회원 {}", member);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM member")) {
+            while (resultSet.next()) {
+                var member = new Member(
+                        resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("age"));
+                log.info("회원 {}", member);
+            }
         }
     }
 
     private Member selectMemberById(Connection connection, Long id) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE id=?");
-        preparedStatement.setLong(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            return new Member(
-                    resultSet.getLong("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("email"),
-                    resultSet.getInt("age"));
-        } else {
-            return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM member WHERE id=?")) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Member(
+                            resultSet.getLong("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email"),
+                            resultSet.getInt("age"));
+                } else {
+                    return null;
+                }
+            }
         }
     }
 }
