@@ -31,39 +31,25 @@ CREATE TABLE article (
 * DBA 또는 개발자가 직접 SQL 작성
 * Hibernate의 DDL Export 기능을 사용하여 초기 DDL 생성
 
-다음과 같이 설정하고 애플리케이션을 실행하면,
+DDL 생성용 프로필(ddl)을 application-ddl.properties에 생성해 두었으며 이를 사용하면
 실제 데이터베이스에는 아무 작업도 수행하지 않고 DDL 파일만 생성할 수 있다.
 
-```properties
-# 운영 환경용 DDL 생성 설정
-
-# 앱 실행 시 실제 DB에 대해 CREATE / ALTER / DROP 등을 수행하지 않음
-spring.jpa.hibernate.ddl-auto=none
-spring.jpa.properties.jakarta.persistence.schema-generation.database.action=none
-
-# Entity 기반 DDL 생성 요청
-spring.jpa.properties.jakarta.persistence.schema-generation.scripts.action=create
-
-# 생성될 DDL 파일 위치
-spring.jpa.properties.jakarta.persistence.schema-generation.scripts.create-target=create.sql
+```
+./gradlew bootRun --args='--spring.profiles.active=ddl'
 ```
 
-앱 실행 후 프로젝트 실행 디렉토리 기준으로 `create.sql` 파일이 생성되며,
-Hibernate가 Entity를 분석하여 생성한 DDL이 기록된다.
-
-예시:
-
-```sql
-create table member (
-    id bigint not null auto_increment,
-    name varchar(255),
-    primary key (id)
-);
+```properties
+# DDL 생성
+spring.jpa.properties.jakarta.persistence.schema-generation.database.action=none
+spring.jpa.properties.jakarta.persistence.schema-generation.scripts.action=create
+spring.jpa.properties.jakarta.persistence.schema-generation.scripts.create-target=build/generated/ddl/create.sql
+spring.jpa.properties.jakarta.persistence.schema-generation.create-source=metadata
+# DDL 생성용 프로필에서는 명시 추천
+spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
 ```
 
 생성된 DDL은 운영 환경에 바로 적용하기보다는,
 검토 및 수정 후 Flyway migration 파일(`V1__init.sql`) 등의 형태로 관리하는 것이 일반적이다.
-
 
 # Flyway
 
