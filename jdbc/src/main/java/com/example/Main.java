@@ -50,7 +50,7 @@ public class Main {
         Connection connection = DriverManager.getConnection("jdbc:h2:mem:mydb", "sa", "");
         createTable(connection);
 
-        insertMember(connection, "윤서준", "SeojoonYun@hanbit.co.kr", 10);
+        insertMember(connection, "윤서준", "SeojunYoon@hanbit.co.kr", 10);
         insertMember(connection, "윤광철", "KwangcheolYoon@hanbit.co.kr", 43);
         insertMember(connection, "공미영", "MiyeongKong@hanbit.co.kr", 23);
 
