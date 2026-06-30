@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
-import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.MemberNotFoundException;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class MemberService {
     }
 
     public MemberResponse findById(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
         return mapToMemberResponse(member);
     }
 
@@ -69,7 +69,7 @@ public class MemberService {
     }
 
     public MemberResponse update(Long id, MemberRequest memberRequest) {
-        Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
         // password, enabled 필드를 유지해야 하므로 나머지 항목들만 업데이트
         member.setName(memberRequest.getName());
         member.setEmail(memberRequest.getEmail());
@@ -79,7 +79,7 @@ public class MemberService {
     }
 
     public MemberResponse patch(Long id, MemberRequest memberRequest) {
-        Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
         // 전달된 값이 있는 필드만 업데이트
         if (memberRequest.getName() != null) member.setName(memberRequest.getName());
         if (memberRequest.getEmail() != null) member.setEmail(memberRequest.getEmail());
@@ -89,7 +89,7 @@ public class MemberService {
     }
 
     public void deleteById(Long id) {
-        Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
         memberRepository.delete(member);
     }
 

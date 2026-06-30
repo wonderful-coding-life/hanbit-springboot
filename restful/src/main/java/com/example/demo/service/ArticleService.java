@@ -2,15 +2,16 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ArticleRequest;
 import com.example.demo.dto.ArticleResponse;
-import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.ArticleNotFoundException;
+import com.example.demo.exception.MemberNotFoundException;
 import com.example.demo.model.Article;
 import com.example.demo.model.Member;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     public ArticleResponse create(Long memberId, ArticleRequest articleRequest) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
         Article article = Article.builder()
                 .title(articleRequest.getTitle())
                 .description(articleRequest.getDescription())
@@ -39,7 +40,7 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> findByMemberId_(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
 
         List<Article> articles = articleRepository.findAllByMember(member);
         List<ArticleResponse> result = new ArrayList<>();
@@ -63,7 +64,7 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> findByMemberId(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
         return articleRepository.findAllByMember(member)
                 .stream()
                 .map(this::mapToArticleResponse)
@@ -76,18 +77,18 @@ public class ArticleService {
     }
 
     public Page<ArticleResponse> findByMemberId(Long memberId, Pageable pageable) {
-        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
         return articleRepository.findAllByMember(member, pageable)
                 .map(this::mapToArticleResponse);
     }
 
     public ArticleResponse findById(Long id) {
-        Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
+        Article article = articleRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
         return mapToArticleResponse(article);
     }
 
     public ArticleResponse update(Long id, ArticleRequest articleRequest) {
-        Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
+        Article article = articleRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
         article.setTitle(articleRequest.getTitle());
         article.setDescription(articleRequest.getDescription());
         articleRepository.save(article);
@@ -95,7 +96,7 @@ public class ArticleService {
     }
 
     public void delete(Long id) {
-        Article article = articleRepository.findById(id).orElseThrow(NotFoundException::new);
+        Article article = articleRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
         articleRepository.delete(article);
     }
 
