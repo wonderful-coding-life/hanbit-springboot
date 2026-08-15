@@ -2,8 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class MemberServiceTests {
     @Autowired
+    private ArticleRepository articleRepository;
+    @Autowired
     private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
 
-    @AfterEach
-    public void doAfterEach() {
-        memberRepository.deleteAll();
+    @BeforeEach
+    public void doBeforeEach() {
+        if (articleRepository.count() > 0) {
+            articleRepository.deleteAll();
+        }
+        if (memberRepository.count() > 0) {
+            memberRepository.deleteAll();
+        }
     }
 
     @Test

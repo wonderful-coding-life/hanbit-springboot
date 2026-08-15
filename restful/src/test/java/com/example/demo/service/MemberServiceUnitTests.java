@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
 import com.example.demo.model.Member;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +19,20 @@ import static org.mockito.Mockito.when;
 public class MemberServiceUnitTests {
     @MockitoBean
     private MemberRepository memberRepository;
-
+    @Autowired
+    private ArticleRepository articleRepository;
     @Autowired
     private MemberService memberService;
+
+    @BeforeEach
+    public void doBeforeEach() {
+        if (articleRepository.count() > 0) {
+            articleRepository.deleteAll();
+        }
+        if (memberRepository.count() > 0) {
+            memberRepository.deleteAll();
+        }
+    }
 
     @Test
     public void findById() {

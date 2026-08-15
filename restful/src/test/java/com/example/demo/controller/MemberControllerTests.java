@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
@@ -28,10 +29,17 @@ public class MemberControllerTests {
     private ObjectMapper objectMapper;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
-    @AfterEach
-    void doAfterEach() {
-        memberRepository.deleteAll();
+    @BeforeEach
+    public void doBeforeEach() {
+        if (articleRepository.count() > 0) {
+            articleRepository.deleteAll();
+        }
+        if (memberRepository.count() > 0) {
+            memberRepository.deleteAll();
+        }
     }
 
     @Test

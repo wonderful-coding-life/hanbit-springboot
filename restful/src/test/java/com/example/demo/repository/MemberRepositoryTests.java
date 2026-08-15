@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.Article;
 import com.example.demo.model.Member;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MemberRepositoryTests {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @BeforeEach
     public void doBeforeEach() {
-        memberRepository.deleteAll();
-        memberRepository.save(Member.builder().name("윤서준").email("SeojunYoon@hanbit.co.kr").age(10).enabled(true).build());
-        memberRepository.save(Member.builder().name("윤광철").email("KwangcheolYoon@hanbit.co.kr").age(43).enabled(true).build());
-        memberRepository.save(Member.builder().name("공미영").email("MiyeongKong@hanbit.co.kr").age(26).enabled(false).build());
-        memberRepository.save(Member.builder().name("김도윤").email("DoyunKim@hanbit.co.kr").age(10).enabled(true).build());
-    }
-
-    @AfterEach
-    public void doAfterEach() {
-        memberRepository.deleteAll();
+        if (articleRepository.count() > 0) {
+            articleRepository.deleteAll();
+        }
+        if (memberRepository.count() > 0) {
+            memberRepository.deleteAll();
+            memberRepository.save(Member.builder().name("윤서준").email("SeojunYoon@campus.co.kr").age(10).enabled(true).build());
+            memberRepository.save(Member.builder().name("윤광철").email("KwangcheolYoon@campus.co.kr").age(43).enabled(true).build());
+            memberRepository.save(Member.builder().name("공미영").email("MiyeongKong@campus.co.kr").age(26).enabled(false).build());
+            memberRepository.save(Member.builder().name("김도윤").email("DoyunKim@campus.co.kr").age(10).enabled(true).build());
+        }
     }
 
     @Test
@@ -51,10 +54,10 @@ public class MemberRepositoryTests {
         assertThat(memberRepository.count()).isEqualTo(4);
         // '윤서준'이라는 이름으로 검색된 결과 개수가 1인지 검증
         assertThat(memberRepository.findByName("윤서준").size()).isEqualTo(1);
-        // 이름이 '윤서준'이고 이메일이 'SeojunYoon@hanbit.co.kr'인 사용자를 조회한 결과 개수가 1인지 검증
-        assertThat(memberRepository.findByNameAndEmail("윤서준", "SeojunYoon@hanbit.co.kr").size()).isEqualTo(1);
-        // 이름이 '윤서준'이거나 또는 이메일이 'KwangcheolYoon@hanbit.co.kr'인 사용자를 조회한 결과 개수가 2인지 검증
-        assertThat(memberRepository.findByNameOrEmail("윤서준", "KwangcheolYoon@hanbit.co.kr").size()).isEqualTo(2);
+        // 이름이 '윤서준'이고 이메일이 'SeojunYoon@campus.co.kr'인 사용자를 조회한 결과 개수가 1인지 검증
+        assertThat(memberRepository.findByNameAndEmail("윤서준", "SeojunYoon@campus.co.kr").size()).isEqualTo(1);
+        // 이름이 '윤서준'이거나 또는 이메일이 'KwangcheolYoon@campus.co.kr'인 사용자를 조회한 결과 개수가 2인지 검증
+        assertThat(memberRepository.findByNameOrEmail("윤서준", "KwangcheolYoon@campus.co.kr").size()).isEqualTo(2);
         // 이름에 '윤'이라는 글자가 포함된 사용자를 조회한 결과 개수가 3인지 검증
         assertThat(memberRepository.findByNameContaining("윤").size()).isEqualTo(3);
         // 이름이 '영'으로 끝나는 사람을 조회한 결과 개수가 1인지 검증
